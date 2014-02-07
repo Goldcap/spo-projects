@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- Main Page Content and Sidebar -->
+
+  <div class="row">
+        
+    <!-- Main Blog Content -->
+    <div class="eight columns settop" role="main">
+        <form id="profile_form" action="{% url 'urbanspace_app.views.profile_form' %}" method="POST">{% csrf_token %}
+    
+
+        <h4>Become A Vendor <a href="faq.html" class="question">Questions? Visit the FAQ</a></h4>
+		 	
+        <div class="row">
+        <div class="twelve columns">
+            
+               
+                  <div class="row">
+                    <div class="six columns">
+                    {{ form.FirstName }}
+                    </div>
+                    <div class="six columns">
+                    {{ form.LastName }}
+                    </div>
+                  </div><!--row-->
+                
+                    <div class="row">
+                        <div class="twelve columns">
+                        {{ form.Company }}
+                        </div>
+                    </div>
+                
+                	<div class="row">
+                        <div class="six columns">
+                        {{ form.Email }}
+                        </div>
+                        <div class="six columns">
+                        {{ form.Website }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="twelve columns">
+                        {{ form.Telephone }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="twelve columns">
+                        {{ form.BusinessTelephone }}
+                        </div>
+                    </div><!--row-->
+                
+             <hr />
+           
+          </div>
+         
+        </div>
+        
+        
+        {% if form.errors %}
+        <div class="row">
+        <div class="twelve columns">
+            <span style="color:Red;display:inline;" id="validation_last">
+                {{ form.errors }}
+            </span>
+        </div>
+        </div>
+        {% endif %}
+   
+		 <div class="row">
+         <div class="twelve columns">
+         	<h5>Product Category (One or More)</h5>
+            
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedCategory }}    
+                </div>
+            </div>
+            
+         </div>
+         </div><!--row-->
+         
+         
+         
+          <div class="row">
+         <div class="twelve columns">
+         	<h5>Product Features (Choose One or More)</h5>
+            
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedFeature }}    
+                </div>
+            </div>
+           
+         </div>
+         </div><!--row-->
+         
+         
+         <div class="row">
+         <div class="twelve columns">
+         	<h5>I’m interested in the following markets (choose one or more)</h5>
+           	
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedMarket }}    
+                </div>
+            </div>
+           
+         </div>
+         </div><!--row-->
+         
+         <div class="row">
+         <div class="twelve columns">
+         	<h5>Include a short description of your company and products<span class="red">*</span></h5>
+         	
+            <div class="row">
+				<div class="ten columns description">
+                    <table style="width:100%" >
+                    	<tr>
+                        	<td>
+                            <textarea placeholder="" class="profile"></textarea>
+                    		<input type="submit" value="submit" class="button radius right" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+           		</div>
+            </div><!--row-->
+           
+         </div>
+         </div>
+ 		 </form>
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+    <aside class="four columns">
+	<div class="panel panel-white">
+      <form id="main_form" action="{% url 'urbanspace_app.views.vendor_login' %}" method="POST">{% csrf_token %}
+      <h3 class="red text-center already-font">Already Have A Vendor Account?</h3>
+      <div class="row">
+      <div class="ten columns setleft">
+        <input type="text" name="Email" placeholder="Email">
+        <input type="password" name="Password" placeholder="Password">
+        <input type="submit" value="Sign In" class="small button radius right" />
+      </div>
+      </form>
+    </div>
+      
+      </div>
+       
+
+      <div class="panel">
+        
+        <p>UrbanSpace is always on the lookout for unique, upscale products. Our merchants are artists and business-people who are our partners; we work together to discover the best way to help promote and operate each market.</p>
+        <p><strong>Locations:</strong> UrbanSpace are in the best spots in New York. We partner with the neighborhoods to create vibrant, high-traffic areas that are attractive, easily-accessible and exciting for locals and visitors.</p>
+        <p><strong>Traffic:</strong> the locations are already known and highly populated, but we also make sure that we are close to popular public transportation, dense residential and working areas, and hot tourist spots.</p>
+        <p><strong>Quality Control:</strong> we review all of our vendors and we balance the product categories. Our shoppers know that the merchandise they discover at an Urban Space market is unique, creative, and something to talk about. We specialize in showcasing the small, artistic industries, and our customers expect to find the newest designs and high artisanal quality.</p>
+        <!--a href="faq.html">Read More &rarr;</a-->
+      </div>
+
+    </aside>
+
+    <!-- End Sidebar -->
+    
+  </div>
+
+  <!-- End Main Content and Sidebar -->
+
+{% endblock %}

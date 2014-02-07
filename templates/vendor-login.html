@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- Main Page Content and Sidebar -->
+
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="eight columns settop" role="main">
+
+        <h4>Vendor Login</h4>
+		
+        <div class="row">
+         <div class="twelve columns">
+            <form id="main_form" action="#" method="POST">{% csrf_token %}
+         	 <div class="row">
+                    <div class="six columns">
+                    <label class="h6">Current Vendors</label>
+                    <span id="validation_msg_email" style="color:Red;display:none;">Please enter valid email address</span>
+                    <input type="text" name="Email" id="id_Email" placeholder="Email" value="{{ form_values.Email }}">
+                    <input type="password" name="Password" id="id_Password" placeholder="Password" value="{{ form_values.Password }}">
+                    <span id="validation_last" style="color:Red;display:inline;">
+                   {% if form.errors %}
+                        {{form.errors}}
+                    {% endif %}
+                    </span>
+                    <input type="button" value="submit" class="button radius right" onclick="javascript:onclick_submit();"/>
+                    
+                    <a href="/forgot-password/">Forgot your password?</a>
+                    </div>
+
+                    <div class="six columns">
+                    	<label class="h6">First Time?</label>
+                    	<input type="button" value="Create An Account" class="button radius" onclick="javascript:onvendor_signup();" />
+                    </div>
+             </div><!--row-->
+            </form>
+         </div>
+
+       </div>
+
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+    <aside class="four columns">
+	<div class="panel panel-white">
+        <div class="row">
+            <div class="twelve columns">
+                <img src="/static/images/foundation/custom/logined.jpg" alt="">
+            </div>
+        </div>
+      
+      </div>
+    </aside>
+
+    <!-- End Sidebar -->
+   
+  </div>
+
+  <!-- End Main Content and Sidebar -->
+  <script type="text/javascript">
+    function onvendor_signup()
+    {
+        location.href = "/vendor_signup";
+    }
+    function onclick_submit()
+    {
+        var is_valid = true;
+
+        var sEmail = $('#id_Email').val();
+        if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
+            $("#validation_msg_email").css("display", "inline");
+            is_valid = false;
+        }
+        else {
+            $("#validation_msg_email").css("display", "none");
+        }
+
+        if(is_valid){
+            $("#main_form").submit();
+        }
+    }
+  </script>
+{% endblock %}

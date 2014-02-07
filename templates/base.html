@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title>UrbanSpace — Makers | Artists | Farmers | Chefs</title>
+
+  <!-- Included CSS Files (Uncompressed) -->
+  <!--
+  <link rel="stylesheet" href="stylesheets/foundation.css">
+  -->
+
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/foundation-3/foundation.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/app.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/custom.css" /> 
+  <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jquery-datepicker/smoothness.datepick.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jquery-growl/stylesheets/jquery.growl.css" />
+  
+  <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jQuery-File-Upload-8.3.2/css/jquery.fileupload-ui.css">
+
+  <script src="{{ STATIC_URL }}javascripts/foundation-3/modernizr.foundation.js"></script
+  <script src="{{ STATIC_URL }}javascripts/lodash.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/jquery.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/common.js"></script
+  <script src="{{ STATIC_URL }}javascripts/jquery.form.js"></script> 
+  <script src="{{ STATIC_URL }}javascripts/jquery-validation-1.9.0/jquery.validate.js"></script>          
+  <script src="{{ STATIC_URL }}javascripts/foundation-3/jquery.foundation.reveal.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/jquery-datepicker/jquery.datepick.js"></script>                       
+  <script src="{{ STATIC_URL }}javascripts/apiConnection.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/forms/usmForm.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/jquery-growl/javascripts/jquery.growl.js"></script>
+  <!-- Included JS Files (Compressed) -->
+  
+  <script src="{{ STATIC_URL }}javascripts/jQuery-File-Upload-8.3.2/js/vendor/jquery.ui.widget.js"></script>
+  <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+  <script src="{{ STATIC_URL }}javascripts/jQuery-File-Upload-8.3.2/js/jquery.iframe-transport.js"></script>
+  <!-- The basic File Upload plugin -->
+  <script src="{{ STATIC_URL }}javascripts/jQuery-File-Upload-8.3.2/js/jquery.fileupload.js"></script>
+  
+  {% block javascripts %}{% endblock %}
+  
+</head>
+<body>
+
+  <!-- Nav Bar -->
+<header>
+  <div class="row">
+    <div class="twelve columns">
+    	<h1 class="logo"><a href="#"><img src="{{ STATIC_URL }}images/foundation/custom/UrbanSpace_LogoType_500.png" alt="Urban Space" /></a></h1>
+          <ul class="nav-bar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/my_market/">Your Markets</a></li>
+            <li><a href="/category/press/">Press</a></li>
+            <li><a href="/vendor_login/">Vendor Login</a></li>
+            <li><a href="/works/">Office Space</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="http://urbanspace.com/">UK</a></li>
+          </ul>
+
+    </div>
+  </div>
+</header>
+  <!-- End Nav -->
+
+{% block content %}Empty page{% endblock %}
+
+  <!-- Footer -->
+
+   <footer>
+  	<div class="row">
+    <div class="twelve columns">
+
+      <div class="row">
+        <div class="six columns">
+          <p>&copy; 2013 Urban Space. All Rights Reserved.</p>
+        </div>
+        <div class="six columns">
+          <ul class="link-list right">
+            <li><a href="http://blvdcreative.net"><img src="{{ STATIC_URL }}images/foundation/custom/blvd.jpg" alt="BLVD//creative" /></a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+  </footer>
+  
+  <!-- End Footer -->
+  <div id="Modal" class="reveal-modal large"></div>
+           
+  <!-- Initialize JS Plugins -->
+  <script src="{{ STATIC_URL }}javascripts/app.js"></script>
+
+</body>
+</html>

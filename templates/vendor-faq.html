@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+
+  {% block nav %}
+  <!-- Main Page Content and Sidebar -->
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a href="/vendor_home">My Profile</a></li>
+            <li><a href="/vendor_images">My Photos</a></li>
+            <li><a href="/my_market">My Markets</a></li>
+            <li><a class="active" href="#">Market FAQ</a></li>
+            <li><a href="/logout">Logout</a></li>
+         </ul>
+		
+    </div>
+  </div>
+  {% if user.is_staff or user.is_superadmin %}
+  <div class="row">
+  	<div class="eight column">
+        &nbsp;
+    </div>
+    <div class="four column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/vendor_profile_report/">USM Admin</a></li>
+            <li><a href="/admin/">Django Admin</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+  
+  
+  
+  	<div class="row">
+	<form action="#" class="custom example">
+    <!-- Main Blog Content -->
+    <div class="twelve columns settop" role="main">
+
+    	<div class="row">
+        	<div class="eight columns">
+            	<h4>Frequently Asked Questions</h4>
+            </div>
+            
+            <aside class="four columns">
+            	<div class="row">
+                	<div class="twelve columns">
+                    	<h5><a href=""> {{ user.email }} </a></h5>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        
+        <div class="row">
+        	<div class="twelve columns">
+            	<p>&nbsp;</p>
+            </div>
+        </div>
+        
+     	
+        
+     	 <div class="row">
+         <div class="eight columns">
+         {% if not faqs %}
+            <table style="width:100%">
+          	<tr>
+            	<td><strong>Sorry!:</strong> No Questions Yet</td>
+            </tr>
+          </table>
+         {% else %}
+         {% for faq in faqs %}
+          <table style="width:100%">
+          	<tr>
+            	<td><strong>Question:</strong> {{ faq.Question }}</td>
+            </tr>
+            <tr>
+            	<td><strong>Answer:</strong> {{ faq.Answer }}</td>
+            </tr>
+          </table>    
+          {% endfor %}
+          {% endif %}
+           
+         </div>
+         
+          <div class="four columns"></div>
+       </div>
+       
+       <div class="row">
+         <div class="twelve columns">
+         	<ul class="pagination">
+              {% if faqs.has_previous %}
+                    <li class="arrow"><a href="?page={{ faqs.previous_page_number }}">&laquo;</a></li>
+              {% else %}
+                    <li class="arrow unavailable"><a href="#">&laquo;</a></li>
+              {% endif %}
+              
+              {% for page in faqs.paginator.page_range %}
+                <li {% if paginator.number == page or not paginator.number%}class="current"{% endif %}><a href="?page={{ page }}">{{ page }}</a></li>
+              {% endfor %}
+              
+              {% if faqs.has_next %}
+                    <li class="arrow"><a href="?page={{ faqs.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                    <li class="arrow unavailable"><a href="#">&raquo;</a></li>
+              {% endif %}
+            </ul>
+         </div>
+       </div><!--row-->
+       
+  		<div class="row">
+            <div class="twelve columns">
+                <p>&nbsp;</p>
+            </div>	
+        </div>
+     
+ 		
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+ 
+    <!-- End Sidebar -->
+   
+    <div class="row">
+         <div class="twelve columns">
+         	<p>&nbsp;</p>
+         </div>
+    </div>
+    
+     </form>
+  </div>
+
+  <!-- End Main Content and Sidebar -->
+
+{% endblock %}

@@ -1,0 +1,283 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {
+    font-family: 'CenturyGothicRegular';
+    src: url('../fonts/gothic.eot');
+    src: url('../fonts/gothic.eot') format('embedded-opentype'),
+         url('../fonts/gothic.woff') format('woff'),
+         url('../fonts/gothic.ttf') format('truetype'),
+         url('../fonts/gothic.svg#CenturyGothicRegular') format('svg');
+}
+body{
+	font-size:10px!important		
+}
+/*Header*/
+header{
+	width:100%;
+	border-bottom:solid 1px #ccc;
+	font-family:CenturyGothicRegular,'Apple Gothic', Verdana, sans-serif	
+}
+.logo{
+	margin:56px auto;
+	text-align:center	
+}
+.nav-bar{
+	background-color:#fff!important;
+	margin-left: 20px !important;
+}
+.nav-bar > li{
+	border:none!important	
+}
+.nav-bar > li > a:hover,ul.sub-nav li a.active {
+	color:#D10000!important;	
+}
+.red{
+	color:#D10000	
+}
+textarea.profile{
+	height:90px!important;
+	max-width:460px	!important;
+	
+}
+.usm-zebra-block {
+    /*padding-top: 10px;*/
+    /*border: 1px solid #dddddd;*/
+}
+
+.usm-zebra-block-two-up li:nth-child(4n-1),.usm-zebra-block-two-up li:nth-child(4n)  { background: #f9f9f9; }
+.usm-zebra-block-three-up li:nth-child(6n),.usm-zebra-block-three-up li:nth-child(6n-1),.usm-zebra-block-three-up li:nth-child(6n-2) { background: #f9f9f9; }
+
+.main-contract {
+    text-transform: uppercase;
+}
+
+.description{
+	max-width:472px	!important;
+}
+.description table,.description table tr td{
+	border:none;
+	padding:0px	
+}
+.panel-white{
+	background:#fff!important;
+	padding:10px!important;
+	margin-top:20px!important	
+}
+.settop{
+	padding-top:8px!important	
+}
+.setleft{
+	margin-left:20px!important	;
+}
+.floatLeft{
+	float:left!important
+}
+.underline{
+	text-decoration:underline	
+}
+.space-left{
+	margin-left:15px!important	
+}
+table.no-border, table.no-border tr td{
+	border:none!important;
+	padding:0px!important;
+	margin:0px!important	
+}
+input.file {
+	position: absolute;
+	text-align: right;
+	-moz-opacity:0 ;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+	right:-30px
+}
+.setHeight{
+	padding:10px 14px 8px!important	;
+	z-index:1;
+	position:relative
+}
+.fix-width{
+	min-width:100px!important	
+}
+.group-newmargin{
+	margin:0 0 1px!important	
+}
+.settop2{
+	margin-top:40px!important	
+}
+ul.button-group li input[type="text"]{
+	border:none!important;
+	box-shadow:none!important
+}
+/*Map*/
+.listOne{
+	position:absolute;
+	width:22px;
+	height:20px;
+	left:157px;
+	top:24px;
+}
+.listTwo{
+	position:absolute;
+	width:22px;
+	height:20px;
+	left:133px;
+	top:121px;
+}
+.listThree{
+	position:absolute;
+	width:22px;
+	height:20px;
+	left:112px;
+	top:144px;
+}
+.listFour{
+	position:absolute;
+	width:22px;
+	height:20px;
+	left:133px;
+	top:154px;
+}
+.login-btn{
+	min-width:128px!important	
+}
+.loginas-btn{
+	min-width:228px!important	
+}
+ul.sub-nav{
+	list-style:none;
+	background:#F2F2F2;
+	padding:10px;
+	margin:15px 0 0 0
+}
+ul.sub-nav li{
+	display:inline-block;
+	margin-right:20px;
+	font:bold 13px/20px CenturyGothicRegular, 'Apple Gothic', Verdana, sans-serif;	
+}
+ul.sub-nav li.last-nav{
+	margin-right:0px	
+}
+ul.breadcrumbs{
+    float: right;
+    background:#ffffff;
+    border: none;
+}
+label.complete{
+	color:#457A1A	
+}
+label.incomplete{
+	color:#D10000	
+}
+label.unknown{
+	color:#0066cc	
+}
+a.question{
+	font-size:16px!important	
+}
+.already-font{
+	font-size:14px!important;
+}
+.space-left2{
+	
+}
+/*table*/
+table.images-upload{
+	width:100%	
+}
+table.images-upload tr td:first-child{
+	width:80px	
+}
+table.images-upload tr td:last-child{
+	vertical-align:middle
+}
+
+/*Scroll*/
+.scroll-pane
+{
+	width: 100%;
+	height: 400px;
+	overflow: auto;
+}
+.scroll-pane p{
+	padding-right:10px	
+}
+
+/*Footer*/
+footer{
+	font-family:Georgia,"Times New Roman",Times,serif;
+	color:#BBBBBB;
+	width:100%;
+	border-top:1px solid #CCCCCC;
+	padding-top:20px	
+}
+
+.cappie { text-transform: capitalize }
+
+.errorlist li {
+    color: white;
+    background: none repeat scroll 0 0 #C60F13;
+    font-weight: bold;
+    padding: 6px 4px;
+    font-size: 12px;
+}
+
+th.email {
+    width: 250px;
+    overflow: hidden;
+}
+
+.fileinput-button input {
+    cursor: pointer;
+    direction: ltr;
+    float: left;
+    font-size: 23px;
+    margin: 0;
+    opacity: 0;
+    position: absolute !important;
+    top: -36px !important;
+    left: 0px !important;
+    width: 155px !important;
+    transform: none !important;
+}
+
+.overlay {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 25px;
+    margin-top:5px;
+    background: url('/static/images/Neu/16x16/actions/dialog-cancel.png') 0 0 no-repeat;
+    padding: 1px;
+    display: none;
+}
+
+ul.products li .wrapper {
+    float: left;
+    padding: 5px;
+    width: 90%;
+    border: 1px solid #ddd;
+}
+
+ul.products li span {
+    float: left;
+}
+
+ul.products li .name {
+    width: 60%;
+    overflow: hidden;
+}
+
+ul.products li .price {
+    width: 25%;
+    overflow: hidden;
+}
+
+ul.products li .delete {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    background: url('/static/images/Neu/16x16/actions/dialog-cancel.png') 0 0 no-repeat;
+    
+}

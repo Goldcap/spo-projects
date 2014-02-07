@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- Main Page Content and Sidebar -->
+
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="eight columns settop" role="main">
+
+        <h4>Frequently Asked Questions</h4>
+		
+        <div class="row">
+         
+         <div class="twelve columns">
+          {% if not faqs %}
+            <table style="width:100%">
+          	<tr>
+            	<td><strong>Sorry!:</strong> No Questions Yet</td>
+            </tr>
+          </table>
+         {% else %}
+         {% for faq in faqs %}
+          <table style="width:100%">
+          	<tr>
+            	<td><strong>Question:</strong> {{ faq.Question }}</td>
+            </tr>
+            <tr>
+            	<td><strong>Answer:</strong> {{ faq.Answer }}</td>
+            </tr>
+          </table>    
+          {% endfor %}
+          {% endif %}   
+           
+         </div>
+         
+       </div>
+
+      
+       <div class="row">
+         <div class="twelve columns">
+         	<ul class="pagination">
+              {% if faqs.has_previous %}
+                    <li class="arrow"><a href="?page={{ faqs.previous_page_number }}">&laquo;</a></li>
+              {% else %}
+                    <li class="arrow unavailable"><a href="#">&laquo;</a></li>
+              {% endif %}
+              
+              {% for page in faqs.paginator.page_range %}
+                <li {% if paginator.number == page or not paginator.number%}class="current"{% endif %}><a href="?page={{ page }}">{{ page }}</a></li>
+              {% endfor %}
+              
+              {% if faqs.has_next %}
+                    <li class="arrow"><a href="?page={{ faqs.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                    <li class="arrow unavailable"><a href="#">&raquo;</a></li>
+              {% endif %}
+            </ul>
+         </div>
+       </div><!--row-->
+        
+ 		
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+    <aside class="four columns">
+	<div class="panel panel-white">
+      <div class="row">
+      <div class="twelve columns">
+        <img src="{{ STATIC_URL }}images/foundation/custom/map.jpg" alt="map" />
+        
+        <div class="listOne"><a href="http://specialprojectoffice.com/columbus-circle-holiday-market/"><span data-tooltip="" class="has-tip tip-bottom" data-width="92"  title="Columbus Circle Holiday Market"><img src="{{ STATIC_URL }}images/foundation/custom/blank.png" alt="map" /></span></a></div>
+        
+         <div class="listTwo"><a href="http://specialprojectoffice.com/mad-sq-eats/"><span data-tooltip="" class="has-tip tip-bottom" data-width="100"  title="Mad. Sq. Eats" ><img src="{{ STATIC_URL }}images/foundation/custom/blank.png" alt="map" /></span></a></div>
+         
+         <div class="listThree"><a href="http://specialprojectoffice.com/works/"><span data-tooltip="" class="has-tip tip-bottom" data-width="85"  title="Urbanspace Works" ><img src="{{ STATIC_URL }}images/foundation/custom/blank.png" alt="map" /></span></a></div>
+         
+         <div class="listFour"><a href="http://specialprojectoffice.com/union-square-holiday-market/"><span data-tooltip="" class="has-tip tip-bottom" data-width="100"  title="Union Square Holiday Market" ><img src="{{ STATIC_URL }}images/foundation/custom/blank.png" alt="map" /></span></a></div>
+        
+      </div>
+    </div>
+      
+      </div>
+       
+
+      <div class="panel">
+        <h5>Ask A Question</h5>
+        <p>If you have more questions, fill out this form and someone will get back to you as soon as possible.</p>
+       	<p><textarea placeholder="" class="profile"></textarea></p>
+        <p class="text-right"><input type="button" value="submit" class="small button radius" /></p>
+      </div>
+
+    </aside>
+
+    <!-- End Sidebar -->
+   
+  </div>
+
+  <!-- End Main Content and Sidebar -->
+{% endblock %}

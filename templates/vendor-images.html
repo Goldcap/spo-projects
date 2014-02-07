@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+
+  {% block nav %}
+  <!-- Main Page Content and Sidebar -->
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a href="/vendor_home/">My Profile</a></li>
+            <li><a class="active" href="/vendor_images/">My Photos</a></li>
+            <li><a href="/my_market/">My Markets</a></li>
+            <li><a href="/vendor_faq/">Market FAQ</a></li>
+            <li><a href="/logout">Logout</a></li>
+         </ul>
+		
+    </div>
+  </div>
+  {% if user.is_staff or user.is_superadmin %}
+  <div class="row">
+  	<div class="eight column">
+        &nbsp;
+    </div>
+    <div class="four column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/vendor_profile_report/">USM Admin</a></li>
+            <li><a href="/admin/">Django Admin</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+  
+  	<div class="row">
+	
+    <!-- Main Blog Content -->
+    <div class="twelve columns settop" role="main">
+
+    	<div class="row">
+        	<div class="eight columns">
+            	<h5><a href="">{{ vendor.Company }}</a></h5>
+            </div>
+            
+            <aside class="four columns">
+            	<div class="row">
+                	<div class="twelve columns">
+                    	<h5><a href=""> {{ user.email }} </a></h5>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        
+        <div class="row">
+        	<div class="twelve columns">
+            	<p>&nbsp;</p>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+        	<div class="six columns">
+            	
+                <h5>Display Images</h5>
+             	
+                 <!-- The container for the uploaded files -->
+                <table id="filetable" style="width:100%">
+                    {% if display_images %}
+                    {% for animage in display_images %}
+                	<tr id="tr_display_{{animage.id}}" class="display">
+                    	<td style="width:80px">
+                            <div class="overlay"></div>                            
+                            <img id="display_{{animage.id}}" type="display" class="image" src="{{animage.thumbnail}}" alt="" />
+                        </td>
+                        <td>
+                            {{animage.filename}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    <tr id="tr_display_0" class="display" {% if display_images %}style="display:none"{% endif %}>
+                    	<td colspan="2">
+                           No uploaded images.
+                        </td>
+                    </tr>
+                </table>
+                                                
+            </div>
+            <div class="six columns"></div>
+        </div>
+        
+        <div class="row">
+        	<div class="six columns">
+            	
+                <h5>Business Logos</h5>
+             	
+                <!-- The container for the uploaded files -->
+                <table id="filetable" style="width:100%">
+                    {% if business_logo_images %}
+                    {% for animage in business_logo_images %}
+                	<tr id="tr_businesslogo_{{animage.id}}" class="businesslogo">
+                    	<td style="width:80px">
+                            <div class="overlay"></div>                            
+                            <img id="businesslogo_{{animage.id}}" type="businesslogo" class="image" src="{{animage.thumbnail}}" alt="" />
+                        </td>
+                        <td>
+                            {{animage.filename}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    <tr id="tr_businesslogo_0" class="businesslogo" {% if business_logo_images %}style="display:none"{% endif %}>
+                    	<td colspan="2">
+                           No uploaded images.
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+        
+        
+      		<div class="row">
+                <div class="twelve columns">
+                    <p>&nbsp;</p>
+                </div>	
+            </div>
+        
+     
+ 		
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <div class="row">
+         <div class="twelve columns">
+         	<p>&nbsp;</p>
+         </div>
+    </div>
+    
+     </form>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+
+<h4 class="red">Vendor Profile for: <a href="#">{{ form.Company.value }}</a></h4>
+
+<form id="modal_form" action="/vendor_profile_form/{{ vendor.id }}/" method="POST" class="custom example">
+
+<div class="panel panel-white">
+    <div class="row">
+        <div class="six columns">
+        {{ form.FirstName }}
+        </div>
+        <div class="six columns">
+        {{ form.LastName }}
+        </div>
+    </div><!--row-->  
+
+    <div class="row">
+        <div class="large-12 columns">
+        {{ form.Company }}
+        </div>
+    </div>
+    
+	<div class="row">
+        <div class="six columns">
+        {{ form.Email }}
+        </div>
+        <div class="six columns">
+        {{ form.Website }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="six columns">
+        {{ form.Telephone }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="six columns">
+        {{ form.BusinessTelephone }}
+        </div>
+    </div><!--row-->
+
+    <div class="row">
+        <div class="twelve columns left">
+        	<select id="customDropdown" name="Approved" class="small">
+                <option value="Select One" disabled="">Select One</option>
+                <option value="1" {% if form.Approved.value = 1 %}selected="selected"{% endif %}>Approved</option>
+                <option value="0" {% if form.Approved.value = 0 %}selected="selected"{% endif %}>Declined</option>
+                <option value="-1" {% if form.Approved.value = -1 %}selected="selected"{% endif %}>New</option>
+            
+            </select>
+        </div>
+    </div><!--row--> 
+  
+    <div class="row">
+        <div class="four columns">
+        {{ form.FirstName }}
+        </div>
+        <div class="four columns"></div>
+        <div class="four columns"></div>
+    </div><!--row-->  
+    
+    <div class="row">
+        <div class="twelve columns">
+            <h6>Product Category (One or More)</h6>
+            
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedCategory }}    
+                </div>
+            </div>
+            
+         </div>
+     </div><!--row-->
+ 
+ 
+     <div class="row">
+         <div class="twelve columns">
+            <h6>Product Features (Choose One or More)</h6>
+            
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedFeature }}    
+                </div>
+            </div>
+           
+         </div>
+     </div><!--row-->
+
+
+
+    <div class="row">
+        <div class="twelve columns">
+        <h6>Subscribe me to the following mailing lists (choose one or more)</h6>
+        <div class="row display">
+            <div class="twelve columns">
+                {{ form.SelectedMarket }}    
+            </div>
+        </div>
+        
+        </div>
+    </div><!--row-->
+
+<div class="row">
+ <div class="twelve columns">
+    <input type="submit" class="button radius right space-left" value="Update" />
+    <input type="button" class="button radius right space-left" value="Delete" />
+ </div>
+</div>
+
+</form>
+
+</div><!--panel-->
+<a class="close-reveal-modal">&#215;</a>

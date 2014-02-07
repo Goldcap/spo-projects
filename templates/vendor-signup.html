@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- Main Page Content and Sidebar -->
+
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="eight columns settop" role="main">
+
+        <h4>Vendor Signup</h4>
+		
+        <div class="row">
+         <div class="twelve columns">
+            <form id="main_form" action="{% url 'urbanspace_app.views.vendor_signup' %}" method="POST">{% csrf_token %}
+         	 <div class="row">
+                    <div class="six columns">
+                    <label class="h6">Current Vendors</label>
+                    <span id="validation_msg_first_name" style="color:Red;display:none;">First Name is required</span>
+                    <input type="text" name="FirstName" id="id_FirstName" placeholder="First Name" value="{{ form_values.FirstName }}">
+                    <span id="validation_msg_last_name" style="color:Red;display:none;">Last Name is required</span>
+                    <input type="text" name="LastName" id="id_LastName" placeholder="Last Name" value="{{ form_values.LastName }}">
+                    <span id="validation_msg_company" style="color:Red;display:none;">Company Name is required</span>
+                    <input type="text" name="Company" id="id_Company" placeholder="Company Name" value="{{ form_values.Company }}">
+                    <span id="validation_msg_email" style="color:Red;display:none;">Please enter valid email address</span>
+                    <input type="text" name="Email" id="id_Email" placeholder="Email" value="{{ form_values.Email }}">
+                    <label class="h6">Note, your email will be your username.</label><br/>
+                    <span id="validation_msg_password" style="color:Red;display:none;">Your password does not match</span>
+                    <input type="password" name="Password" id="id_Password" placeholder="Password">
+                    <input type="password" name="PasswordConfirm" id="id_PasswordConfirm" placeholder="Retype Password">
+                    <span id="validation_last" style="color:Red;display:inline;">
+                   {% if form.errors %}
+                        {{form.errors}}
+                    {% endif %}
+                    </span>
+                    <input type="button" value="submit" class="button radius right" onclick="javascript:onclick_submit()"/>
+                    </div>
+                   
+                    <div class="six columns">
+                    	<label class="h6">Already A Vendor?</label>
+                    	<input type="button" value="Login" class="button radius login-btn" onclick="javascript:onlogin()"/>
+                    </div>
+                  </div><!--row-->
+            </form>
+
+
+           
+         </div>
+         
+       </div>
+
+ 		
+         <div class="row">
+             <div class="twelve columns">
+             	<p>&nbsp;</p>
+             </div>
+         </div>
+        
+         
+     
+ 		
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+    <aside class="four columns">
+	<div class="panel panel-white">
+      <div class="row">
+      <div class="twelve columns">
+        <img alt="" src="{{ STATIC_URL }}images/foundation/custom/logined.jpg" />
+        
+
+        
+      </div>
+    </div>
+      
+      </div>
+       
+
+
+
+    </aside>
+
+    <!-- End Sidebar -->
+   
+  </div>
+  <script type="text/javascript">
+    function onlogin()
+    {
+        location.href = "{% url 'urbanspace_app.views.vendor_login' %}";
+    }
+
+    function onclick_submit()
+    {
+        var is_valid = true;
+        var fname = $('#id_FirstName').val();
+        if( fname.length == 0)
+        {
+            $("#validation_msg_first_name").css("display", "inline");
+            is_valid = false;
+        }
+        else
+        {
+            $('#validation_msg_first_name').css('display','none');
+        }
+
+        var lname = $('#id_LastName').val();
+        if( lname.length == 0)
+        {
+            $("#validation_msg_last_name").css("display", "inline");
+            is_valid = false;
+        }
+        else
+        {
+            $('#validation_msg_last_name').css('display','none');
+        }
+
+        var company = $('#id_Company').val();
+        if( company.length == 0)
+        {
+            $("#validation_msg_company").css("display", "inline");
+            is_valid = false;
+        }
+        else
+        {
+            $('#validation_msg_company').css('display','none');
+        }
+
+
+        var sEmail = $('#id_Email').val();
+        if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
+            $("#validation_msg_email").css("display", "inline");
+            is_valid = false;
+        }
+        else {
+            $("#validation_msg_email").css("display", "none");
+        }
+
+        var pwd = $('#id_Password').val();
+        var retypepwd = $('#id_PasswordConfirm').val();
+        if( pwd.length == 0 || retypepwd.length == 0 || pwd !=retypepwd)
+        {
+            $("#validation_msg_password").css("display", "inline");
+            is_valid = false;
+        }
+        else
+        {
+            $('#validation_msg_password').css('display','none');
+        }
+
+        if(is_valid){
+            $("#main_form").submit();
+        }
+
+    }
+  </script>
+  <!-- End Main Content and Sidebar -->
+
+{% endblock %}

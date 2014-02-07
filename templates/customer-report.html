@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% load sortable_header %}
+
+{% block content %}
+
+  {% block nav %}
+  <!-- Main Page Content and Sidebar -->
+  <!-- Main Page Content and Sidebar -->
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">                                                       
+            <li><a href="/vendor_profile_report">Profile Reports</a></li>
+            <li><a href="/market_listings">Market Reports</a></li>
+            <li><a href="/customer_report" class="active">Customer Reports</a></li>
+            <li><a href="/vendor_login_activity">Login Activity Reports</a></li>
+            <li><a href="/vendor_accounts_report">Applications</a></li>
+            <li class="last-nav"><a href="/accounts_report/">Accounting Reports</a></li>
+         </ul>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="seven column">
+        &nbsp;
+    </div>
+    <div class="five column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/vendor_home/" class="active">Public Site</a></li>
+            <li><a href="/admin/" class="active">Django Admin</a></li>
+            <li><a href="/logout/" class="active">Logout</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endblock %}
+
+  
+  
+  	<div class="row">
+	
+    <!-- Main Blog Content -->
+    <div class="twelve columns settop">
+        <form action="/customer_report/" method="GET" class="custom example">
+    
+        <div class="row">
+        	<div class="six columns">
+            	<h5 class="red">Customer Report</h5>
+            </div>
+            
+            <div class="six columns text-left">
+            	<h5><a href="/customer_report/export/?{{ request.META.QUERY_STRING }}" >Download Excel File</a></h5>
+            </div>
+        </div>
+        
+        <!--
+        <div class="row">
+        	<div class="six columns">
+            	
+                <select id="customDropdown1" >
+                     <option disabled="">All</option>
+                     <option>Union Square Market 2013</option>
+                     <option>Columbus Square Market 2013</option>
+                     <option>Columbus Square Market 2012</option>
+                </select>
+                
+                
+            </div>
+            
+            <div class="six columns text-left">
+            	<div class="large-6 columns">
+                	<label class="viewby">View By:</label>
+                </div>
+                <div class="large-6 columns left">
+                    <select id="customDropdown2" class="small">
+                         <option disabled="">All</option>
+                         <option>Approved</option>
+                         <option>Declined</option>
+                         <option>New</option>
+                    </select>
+                </div>
+            	
+            </div>
+        </div>
+        -->
+        
+        <div class="row">
+        	<div class="six columns">
+            	<input name="term" type="text" placeholder="Keyword or Name" {% if form.term %}value="{{ form.term }}"{% endif %} />
+            </div>
+            
+            <div class="six columns text-left">
+            	<input type="submit" class="button radius small setheight2" value="Search" />
+            </div>
+            <br />
+        </div>
+        
+        </form>
+        
+       
+     	 <div class="row">
+         <div class="twelve columns">
+          <table style="width:100%">
+          	<thead>
+          	<tr>
+                <th><a href="?{% sortable_header request 'order_by' 'EmailAddress' %}">Email</th>
+                <th><a href="?{% sortable_header request 'order_by' 'FirstName' %}">First Name</th>
+                <th><a href="?{% sortable_header request 'order_by' 'LastName' %}">Last Name</th>
+                <th><a href="?{% sortable_header request 'order_by' 'ZipCode' %}">Zip Code</th>
+                <th><a href="?{% sortable_header request 'order_by' 'DateAdded' %}">Date Added</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            {% if profiles %}
+            {% for profile in profiles %}
+            <tr>
+            	<td>{{ profile.EmailAddress }}</td>
+                <td>{{ profile.FirstName }}</td>
+                <td>{{ profile.LastName }}</td>
+                <td>{{ profile.ZipCode }}</td>
+                <td>{{ profile.DateAdded|date:"D d M Y"}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+            	<td colspan="5">No Customers Found</td>
+            </tr>
+            {% endif %}
+            </tbody>
+          </table>    
+          
+          
+        
+           
+         </div>
+         
+          <div class="four columns"></div>
+       </div>
+
+      
+       <div class="row">
+         <div class="twelve columns">
+         	<ul class="pagination">
+              {% if profiles.has_previous %}
+                    <li class="arrow"><a href="?page={{ profiles.previous_page_number }}">&laquo;</a></li>
+              {% else %}
+                    <li class="arrow unavailable"><a href="#">&laquo;</a></li>
+              {% endif %}
+              
+              {% for page in profiles.paginator.page_range %}
+                <li {% if paginator.number == page or not paginator.number%}class="current"{% endif %}><a href="?page={{ page }}">{{ page }}</a></li>
+              {% endfor %}
+              
+              {% if profiles.has_next %}
+                    <li class="arrow"><a href="?page={{ profiles.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                    <li class="arrow unavailable"><a href="#">&raquo;</a></li>
+              {% endif %}
+            </ul>
+         </div>
+       </div><!--row-->
+        
+         
+      		<div class="row">
+                <div class="twelve columns">
+                    <p>&nbsp;</p>
+                </div>	
+            </div>
+     
+ 		
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+ 
+    <!-- End Sidebar -->
+   
+    
+ 
+    
+    <div class="row">
+         <div class="twelve columns">
+         	<p>&nbsp;</p>
+         </div>
+    </div>
+    
+     </form>
+  </div>
+
+  <!-- End Main Content and Sidebar -->
+{% endblock %}

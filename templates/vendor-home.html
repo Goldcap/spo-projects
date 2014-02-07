@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+{% block content %}
+
+  {% block nav %}
+  <!-- Main Page Content and Sidebar -->
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a class="active" href="#">My Profile</a></li> 
+            <!--<li><a href="/market_select/">Make a Payment</a></li>-->
+            <li><a href="/vendor_images">My Photos</a></li>
+            <li><a href="/my_market">My Markets</a></li>
+            <li><a href="/vendor_faq">Market FAQ</a></li>
+            <li><a href="/logout">Logout</a></li>
+         </ul>
+		
+    </div>
+  </div>
+  {% if user.is_staff or user.is_superadmin %}
+  <div class="row">
+  	<div class="eight column">
+        &nbsp;
+    </div>
+    <div class="four column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/vendor_profile_report/">USM Admin</a></li>
+            <li><a href="/admin/">Django Admin</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+  
+  
+
+  <div class="row">
+<form  class="custom" id="main_form" action="#" method="POST">{% csrf_token %}
+    <!-- Main Blog Content -->
+    <div class="eight columns settop" role="main">
+
+        <h5><a href="">Vendor: {{ vendor.Company }}</a></h5>
+     	
+         <br />
+        
+         <h4>My Profile</h4>
+         {% if form.errors %}
+            <script type="text/javascript">
+            {% for error in form.errors %}
+            $.growl.notice({ message: "{{ error }}", location: 'tl'});
+            </script>
+            {% endfor %}    
+        {% endif %}
+          
+         <div class="row">
+         <div class="twelve columns">
+               	
+                <div class="row">
+                    <div class="six columns">
+                    {{ form.FirstName }}
+                    </div>
+                    <div class="six columns">
+                    {{ form.LastName }}
+                    </div>
+                </div><!--row-->
+                
+                <div class="row">
+                    <div class="six columns">
+                    {{ form.Company }}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="six columns">
+                    {{ form.Email }}
+                    </div>
+                    <div class="six columns">
+                    {{ form.Website }}
+                    </div>
+                </div><!--row-->
+                  
+                <div class="row">
+                    <div class="six columns">
+                    {{ form.Telephone }}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="six columns">
+                    {{ form.BusinessTelephone }}
+                    </div>
+                </div><!--row-->
+                
+             <hr/>
+           
+          </div>
+
+        </div>
+
+
+   
+		 <div class="row">
+         <div class="twelve columns">
+         	<h5>Product Category (One or More)</h5>
+
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedCategory }}    
+                </div>
+            </div>
+
+         </div>
+         </div><!--row-->
+         
+         
+         
+          <div class="row">
+         <div class="twelve columns">
+         	<h5>Product Features (Choose One or More)</h5>
+
+             <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedFeature }}    
+                </div>
+            </div>
+           
+         </div>
+         </div><!--row-->
+         
+         
+         <div class="row">
+         <div class="twelve columns">
+         	<h5>Subscribe me to the following mailing lists (choose one or more)</h5>
+           	
+            <div class="row display">
+                <div class="twelve columns">
+                    {{ form.SelectedMailingLists }}    
+                </div>
+            </div>
+
+         </div>
+         </div><!--row-->
+         
+         <div class="row">
+             <div class="twelve columns">
+             	<h5>Include a short description of your company and products<span class="red">*</span></h5>
+    
+                <div class="row">
+    				<div class="twelve columns description">
+                        <table style="width:100%" >
+                        	<tr>
+                            	<td>
+                                {{ form.ShortDecs }} 
+                                <input type="submit" value="submit" class="button radius right" onclick="javascript: onclick_submit();"/>
+                                </td>
+                            </tr>
+                        </table>
+                        
+               		</div>
+                </div><!--row-->
+    
+                
+                
+             </div>
+         </div>
+         
+         
+    
+        <div class="row">
+        	<div class="twelve columns">
+            	<h6>Profile Images</h6>
+        		<p>Upload up to three images that best represent your products and your business. We use these images in promotional materials, so please use high resolution images.</p>
+               		<div class="row">
+                        <div class="six columns">
+                        <span id="validation_msg_fea_mer_title" style="color:Red;display:none;">Caption is required</span>
+                        <input type="text" name="Caption" id="id_Caption" placeholder="Title" >
+                        </div>
+                        
+                        <div class="six columns">
+                        	<ul class="button-group group-newmargin">
+                                <li><a href="#" class="button radius">Upload Image(s)</a></li>
+                            </ul>
+                            
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button">
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input id="merchfileupload" type="file" name="files[]" multiple>
+                            </span>
+                            
+                            <br />
+                        </div>
+                    </div>
+                 
+            </div>
+        </div>
+        
+        <div class="row">
+        	<div class="six columns">
+            	<h6>Uploaded Images:</h6>
+             	
+                <table id="filetable" style="width:100%">
+                    {% if images %}
+                    {% for animage in images %}
+                	<tr id="tr_vendor_{{animage.id}}" class="vendor">
+                    	<td style="width:80px">
+                            <div class="overlay"></div>                            
+                            <img id="{{animage.id}}" type="vendor" class="image" src="{{animage.thumbnail}}" alt="" />
+                        </td>
+                        <td>
+                           {{ animage.caption }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    <tr id="tr_vendor_0" class="vendor" {% if images %}style="display:none"{% endif %}>
+                    	<td colspan="2">
+                           No uploaded images.
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+            <div class="six columns"></div>
+        </div>
+        
+        <!-- End Main Content and Sidebar -->
+        <script type="text/javascript">
+        $(function () {
+            'use strict';
+            // Change this to the location of your server-side upload handler:
+            var url = '/market_contract_image/{{ vendor.id }}/';
+            $('#merchfileupload').fileupload({
+                url: url,
+                dataType: 'json',
+                formData: {atype: 'vendor',
+                           title: $("#id_Caption").val(),
+                           },
+                done: function (e, data) {
+                    $.each(data.result.files, function (index, file) {
+                        $("#tr_vendor_0.vendor").hide();
+                        var text = '<tr id="tr_vendor_'+file.id+'" class="vendor"><td style="width:80px"><div class="overlay"></div><img id="vendor_'+file.id+'" class="image" type="vendor" src="'+file.thumbnail_url+'" alt="" /></td><td>'+file.name+'</td></tr>';
+                        $(text).appendTo('#filetable');
+                        linkImages();
+                    });
+                }
+            });
+        });
+        </script>
+
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+    <aside class="four columns">
+    	<div class="row">
+        	<div class="twelve columns">
+            	<h5><a href=""> {{ user.email }} </a></h5>
+            	<a href="/market_select/" class="button radius " >Apply To a Market</a>
+            	<!--<a href="/market_select/" class="button radius " >Make a Payment</a>-->
+            </div>
+        </div>
+    </aside>
+
+    <!-- End Sidebar -->
+    </form>
+  </div>
+
+  <!-- End Main Content and Sidebar -->
+  <script type="text/javascript">
+    function onclick_submit()
+    {
+        var is_valid = true;
+
+        var sEmail = $('#id_Email').val();
+        if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
+            $("#validation_msg_email").css("display", "inline");
+            is_valid = false;
+        }
+        else {
+            $("#validation_msg_email").css("display", "none");
+        }
+
+        if(is_valid){
+            $("#main_form").submit();
+        }
+    }
+    $("span.custom.checkbox").click(function(){
+        var chkbox = $(this).parent().children("input:hidden");
+        var chkval = chkbox.val()=="1"?"0":"1";
+        chkbox.val(chkval);
+    });        
+  </script>
+{% endblock %}
