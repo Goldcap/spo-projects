@@ -85,7 +85,6 @@ class ActivityLog(models.Model):
     """
     
     user = models.ForeignKey(User)
-    market = models.ForeignKey(Market, blank=True, null=True)
     activity =  models.CharField(choices=USER_ACTIVITY_CHOICES, max_length=20, default='Login')
     DateAdded = models.DateTimeField(auto_now_add=True)
     
