@@ -1,2 +1,4 @@
-3d-curriculum
+SPO Projects
 =============
+
+Initial login/gallery upload project for Moma Class.
