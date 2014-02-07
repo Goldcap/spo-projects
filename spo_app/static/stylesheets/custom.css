@@ -8,15 +8,28 @@
          url('../fonts/gothic.ttf') format('truetype'),
          url('../fonts/gothic.svg#CenturyGothicRegular') format('svg');
 }
+
 body{
 	font-size:10px!important		
 }
-/*Header*/
-header{
-	width:100%;
-	border-bottom:solid 1px #ccc;
-	font-family:CenturyGothicRegular,'Apple Gothic', Verdana, sans-serif	
+
+.row {
+    background-color: white;
+    padding-left: 30px;
 }
+
+.row.main, .row.main .row {
+    padding-left: 0px !important;
+}
+/*Header*/
+.header .logo {
+    float: left;
+    margin-top: 25px;
+    font-family: 'dinengschriftregular', 'Arial Narrow', Arial, Sans-Serif !important; 
+    font-size: 64px;
+    color: black;
+}
+
 .logo{
 	margin:56px auto;
 	text-align:center	
@@ -110,35 +123,6 @@ ul.button-group li input[type="text"]{
 	border:none!important;
 	box-shadow:none!important
 }
-/*Map*/
-.listOne{
-	position:absolute;
-	width:22px;
-	height:20px;
-	left:157px;
-	top:24px;
-}
-.listTwo{
-	position:absolute;
-	width:22px;
-	height:20px;
-	left:133px;
-	top:121px;
-}
-.listThree{
-	position:absolute;
-	width:22px;
-	height:20px;
-	left:112px;
-	top:144px;
-}
-.listFour{
-	position:absolute;
-	width:22px;
-	height:20px;
-	left:133px;
-	top:154px;
-}
 .login-btn{
 	min-width:128px!important	
 }
@@ -149,7 +133,8 @@ ul.sub-nav{
 	list-style:none;
 	background:#F2F2F2;
 	padding:10px;
-	margin:15px 0 0 0
+	margin:15px 0px 0 0;
+    width: 95%;
 }
 ul.sub-nav li{
 	display:inline-block;
@@ -251,33 +236,4 @@ th.email {
     background: url('/static/images/Neu/16x16/actions/dialog-cancel.png') 0 0 no-repeat;
     padding: 1px;
     display: none;
-}
-
-ul.products li .wrapper {
-    float: left;
-    padding: 5px;
-    width: 90%;
-    border: 1px solid #ddd;
-}
-
-ul.products li span {
-    float: left;
-}
-
-ul.products li .name {
-    width: 60%;
-    overflow: hidden;
-}
-
-ul.products li .price {
-    width: 25%;
-    overflow: hidden;
-}
-
-ul.products li .delete {
-    margin-top: 3px;
-    width: 16px;
-    height: 16px;
-    background: url('/static/images/Neu/16x16/actions/dialog-cancel.png') 0 0 no-repeat;
-    
 }

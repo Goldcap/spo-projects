@@ -12,7 +12,6 @@ MARKET_CONTRACT_CHOICES = (('Accepted','Accepted'), ('Rejected','Rejected'), ('W
 USER_ACTIVITY_CHOICES = (('Login','Login'), )
 PAYMENT_CHOICES = ((0,'Paypal'),(1,'Check'),(2,'CreditCard'), )
 
-
 class MailingListSource(models.Model):
     """
     Mailing List List
@@ -40,8 +39,49 @@ class VendorImage(models.Model):
     def thumbnail(self):
         im = get_thumbnail(self.ImgFile, "80x80", quality=50)
         return "/static/media/" + im.url
-    
 
+#http://stackoverflow.com/questions/1760421/how-can-i-render-a-manytomanyfield-as-checkboxes
+class VendorProfile(models.Model):
+    """
+    """
+    user = models.ForeignKey(User, blank=True, null=True, unique=True)
+    FirstName = models.CharField(max_length=100)
+    LastName = models.CharField(max_length=100)
+    Company = models.CharField(max_length=100)
+    DateSubmitted = models.DateTimeField(default=datetime.now(), blank=True, null=True)
+    Address = models.CharField(max_length=300,blank=True, null=True)
+    Address1 = models.CharField(max_length=300, blank=True, null=True)
+    City = models.CharField(max_length=300, blank=True, null=True)
+    State = models.CharField(max_length=300, blank=True, null=True)
+    Zip = models.CharField(max_length=300, blank=True, null=True)
+    Telephone = models.CharField(max_length=50, blank=True, null=True)
+    BusinessTelephone = models.CharField(max_length=50, blank=True, null=True)
+    Fax = models.CharField(max_length=50, blank=True, null=True)
+    Cell = models.CharField(max_length=50, blank=True, null=True)
+    Email = models.CharField(max_length=300, blank=True, null=True)
+    Website = models.CharField(max_length=300, blank=True, null=True)
+    Facebook = models.CharField(max_length=300, blank=True, null=True)
+    Twitter = models.CharField(max_length=300, blank=True, null=True)
+    Password = models.CharField(max_length=300, blank=True, null=True)
+    SelectedMailingLists = models.ManyToManyField(MailingListSource, blank=True, null=True)
+    ShortDecs = models.TextField(blank=True, null=True)
+    Approved = models.IntegerField(default=-1)
+    SelectedImages = models.ManyToManyField(VendorImage, blank=True, null=True)
+    
+    def __str__(self):
+        return "%s %s" % (self.FirstName, self.LastName)
+    
+    def __unicode__(self):
+        return "%s %s" % (self.FirstName, self.LastName)
+        
+    @property
+    def last_login(self):
+        try:
+            al = ActivityLog.objects.filter(user=self.user,activity='Login').order_by('-DateAdded')[0]
+            return al.DateAdded
+        except:
+            return None
+        
 class FAQGroup(models.Model):
     """
     """

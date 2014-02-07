@@ -20,7 +20,10 @@
 
   <!-- Included CSS Files (Compressed) -->
   <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/foundation-3/foundation.css">
+  <link href="/static/fonts/DIN/stylesheet.css" media="screen" rel="stylesheet" type="text/css" charset="utf-8" />
+  <link href="/static/fonts/Universe/stylesheet.css" media="screen" rel="stylesheet" type="text/css" charset="utf-8" />
   <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/app.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/spo.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/custom.css" /> 
   <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jquery-datepicker/smoothness.datepick.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jquery-growl/stylesheets/jquery.growl.css" />
@@ -52,26 +55,32 @@
 </head>
 <body>
 
-  <!-- Nav Bar -->
-<header>
-  <div class="row">
-    <div class="twelve columns">
-    	<h1 class="logo"><a href="#"><img src="{{ STATIC_URL }}images/foundation/custom/UrbanSpace_LogoType_500.png" alt="Urban Space" /></a></h1>
-          <ul class="nav-bar">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/my_market/">Your Markets</a></li>
-            <li><a href="/category/press/">Press</a></li>
-            <li><a href="/vendor_login/">Vendor Login</a></li>
-            <li><a href="/works/">Office Space</a></li>
-            <li><a href="/contact/">Contact</a></li>
-            <li><a href="http://urbanspace.com/">UK</a></li>
-          </ul>
-
+    <div class="row main">
+    
+        <div class="small-12 columns inset">
+            
+            <!-- Nav Bar -->
+            <div class="row header">
+                <div class="large-12 columns logo">
+                    <span class="logo">Special Project Office</span>
+                    <!--<img src="/images/main_logo.jpg">-->
+                </div>
+                
+                <div class="headquarters">
+                    <!--
+                    Headquartered in<br />
+                    Downtown Brooklyn<br />
+                    <br />-->
+                    <a href="#askus" class="button asktop">Ask Us Anything</a>
+                    <!--<br />
+                    <a href="mailto:ask@specialprojectoffice.com">ask@specialprojectoffice.com</a>-->
+                </div>
+            </div>
+          <!-- End Nav -->
+          
+        </div>
+        
     </div>
-  </div>
-</header>
-  <!-- End Nav -->
 
 {% block content %}Empty page{% endblock %}
 

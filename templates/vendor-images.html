@@ -6,15 +6,15 @@
   <div class="row">
   	<div class="twelve column">
     	 <ul class="sub-nav">
-            <li><a href="/vendor_home/">My Profile</a></li>
-            <li><a class="active" href="/vendor_images/">My Photos</a></li>
-            <li><a href="/my_market/">My Markets</a></li>
-            <li><a href="/vendor_faq/">Market FAQ</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/gallery">The Gallery</a></li> 
+            <li><a href="/vendor_home/">My Profile</a></li> 
+            <!--<li><a href="/market_select/">Make a Payment</a></li>-->
+            <li><a class="active" href="#">My Photos</a></li>
          </ul>
 		
     </div>
   </div>
+  
   {% if user.is_staff or user.is_superadmin %}
   <div class="row">
   	<div class="eight column">
@@ -22,7 +22,7 @@
     </div>
     <div class="four column">
     	 <ul class="breadcrumbs">
-            <li><a href="/vendor_profile_report/">USM Admin</a></li>
+            <li><a href="/vendor_profile_report/">User Admin</a></li>
             <li><a href="/admin/">Django Admin</a></li>
         </ul>
     </div>
@@ -57,66 +57,92 @@
         
         
         <div class="row">
-        	<div class="six columns">
-            	
-                <h5>Display Images</h5>
-             	
-                 <!-- The container for the uploaded files -->
-                <table id="filetable" style="width:100%">
-                    {% if display_images %}
-                    {% for animage in display_images %}
-                	<tr id="tr_display_{{animage.id}}" class="display">
-                    	<td style="width:80px">
-                            <div class="overlay"></div>                            
-                            <img id="display_{{animage.id}}" type="display" class="image" src="{{animage.thumbnail}}" alt="" />
-                        </td>
-                        <td>
-                            {{animage.filename}}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    {% endif %}
-                    <tr id="tr_display_0" class="display" {% if display_images %}style="display:none"{% endif %}>
-                    	<td colspan="2">
-                           No uploaded images.
-                        </td>
-                    </tr>
-                </table>
-                                                
+        	<div class="twelve columns">
+            	<h6>Images</h6>
+        		<p>Upload as many images as you'd like. We might use these images in printed materials, so please use high resolution images.</p>
+               		<div class="row">
+                        <!--<div class="six columns">
+                        <span id="validation_msg_fea_mer_title" style="color:Red;display:none;">Caption is required</span>
+                        <input type="text" name="Caption" id="id_Caption" placeholder="Title" >
+                        </div>-->
+                        
+                        <div class="six columns">
+                        	<ul class="button-group group-newmargin">
+                                <li><a href="#" class="button radius">Upload Image(s)</a></li>
+                            </ul>
+                            
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button">
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input id="merchfileupload" type="file" name="files[]" multiple>
+                            </span>
+                            
+                            <br />
+                        </div>
+                    </div>
+                 
             </div>
-            <div class="six columns"></div>
         </div>
         
         <div class="row">
         	<div class="six columns">
-            	
-                <h5>Business Logos</h5>
+            	<h6>Uploaded Images:</h6>
              	
-                <!-- The container for the uploaded files -->
-                <table id="filetable" style="width:100%">
-                    {% if business_logo_images %}
-                    {% for animage in business_logo_images %}
-                	<tr id="tr_businesslogo_{{animage.id}}" class="businesslogo">
-                    	<td style="width:80px">
-                            <div class="overlay"></div>                            
-                            <img id="businesslogo_{{animage.id}}" type="businesslogo" class="image" src="{{animage.thumbnail}}" alt="" />
-                        </td>
-                        <td>
-                            {{animage.filename}}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    {% endif %}
-                    <tr id="tr_businesslogo_0" class="businesslogo" {% if business_logo_images %}style="display:none"{% endif %}>
-                    	<td colspan="2">
-                           No uploaded images.
-                        </td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <div class="six columns">
+                            
+                        <table id="filetable" style="width:100%">
+                            {% if images %}
+                            {% for animage in images %}
+                        	<tr id="tr_vendor_{{animage.id}}" class="vendor">
+                            	<td style="width:80px">
+                                    <div class="overlay"></div>                            
+                                    <img id="{{animage.id}}" type="vendor" class="image" src="{{animage.thumbnail}}" alt="" />
+                                </td>
+                                <td>
+                                   {{ animage.caption }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                            <tr id="tr_vendor_0" class="vendor" {% if images %}style="display:none"{% endif %}>
+                            	<td colspan="2">
+                                   No uploaded images.
+                                </td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                </div>
                 
             </div>
+            <div class="six columns"></div>
         </div>
         
+        <!-- End Main Content and Sidebar -->
+        <script type="text/javascript">
+        $(function () {
+            'use strict';
+            // Change this to the location of your server-side upload handler:
+            var url = '/image_manager/{{ vendor.id }}/';
+            $('#merchfileupload').fileupload({
+                url: url,
+                dataType: 'json',
+                formData: {atype: 'vendor'
+                           //title: $("#id_Caption").val(),
+                           },
+                done: function (e, data) {
+                    $.each(data.result.files, function (index, file) {
+                        $("#tr_vendor_0.vendor").hide();
+                        var text = '<tr id="tr_vendor_'+file.id+'" class="vendor"><td style="width:80px"><div class="overlay"></div><img id="vendor_'+file.id+'" class="image" type="vendor" src="'+file.thumbnail_url+'" alt="" /></td><td>'+file.name+'</td></tr>';
+                        $(text).appendTo('#filetable');
+                        linkImages();
+                    });
+                }
+            });
+        });
+        </script>
+
         
       		<div class="row">
                 <div class="twelve columns">

@@ -289,19 +289,17 @@ def vendor_images(request):
     My Photos
     """
     vendor = VendorProfile.objects.get(user=request.user)
-    display_images = DisplayImage.objects.filter(user=request.user)
-    business_logo_images = BusinessLogo.objects.filter(user=request.user)
+    images = VendorImage.objects.filter(user=request.user)
     
     return render_to_response('vendor-images.html', 
         {'vendor':vendor,
-        'display_images':display_images,
-        'business_logo_images':business_logo_images},
+        'images':images},
         context_instance=RequestContext(request))
 
 
 @login_required
 @csrf_exempt
-def market_contract_image(request, market_id):
+def market_contract_image(request, vendor_id):
     """
     
     Market Contract Images 
@@ -312,11 +310,7 @@ def market_contract_image(request, market_id):
         
         atype = request.POST["atype"]
         
-        if atype == "vendor":
-            profile = VendorProfile.objects.get(pk=market_id)
-        else:
-            market = Market.objects.get(pk=market_id)
-            marketcontract, created = MarketContract.objects.get_or_create(user=request.user, market=market)
+        profile = VendorProfile.objects.get(pk=vendor_id)
             
         if request.FILES == None:
             return HttpResponseBadRequest('Must have files attached!')
@@ -329,7 +323,8 @@ def market_contract_image(request, market_id):
         file_size = wrapped_file.file.size
         
         theimage = VendorImage()
-        theimage.caption = request.POST["title"]
+        if ('title' in request.POST):
+            theimage.caption = request.POST["title"]
         theimage.filename=str(thefile)
         theimage.ImgFile=file
         theimage.user = request.user

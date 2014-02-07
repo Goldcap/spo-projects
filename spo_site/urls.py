@@ -12,6 +12,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'spo_app.views.home', name='home'),
+    url(r'^gallery/', 'spo_app.views.home', name='home'),
     url(r'^account/',include('django.contrib.auth.urls')),
     url(r'^forgot-password/$','spo_app.views.forgot_password',name="forgot-password"),
             
@@ -33,7 +34,9 @@ urlpatterns = patterns('',
     url(r'^vendor_signup/', 'spo_app.views.vendor_signup', name="vendor_signup"),
     url(r'^vendor_images/', 'spo_app.views.vendor_images', name="vendor_images"),
     url(r'^vendor_pending/', 'spo_app.views.vendor_pending', name="vendor_pending"),
-    
+    url(r'^image_manager/(?P<vendor_id>\d+)/', 'spo_app.views.market_contract_image'),
+    url(r'^image_manager/delete/', 'spo_app.views.market_contract_image_delete'),
+   
     #SECTION 3: Admin Pages
     url(r'^admin_login/', 'spo_app.views.admin_login'),
     url(r'^vendor_profile_report/export/', 'spo_app.views.export_report', {'source': 'vendor_profile_report'}),
