@@ -143,7 +143,7 @@ def vendor_signup(request):
                     if ('next' in request.GET):
                         return redirect(request.GET['next'])
                     else:
-                        return redirect('/home/')
+                        return redirect('/profile/')
                 else:
                     return redirect('/pending/')
         except:
