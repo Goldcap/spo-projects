@@ -11,7 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'spo_app.views.home', name='home'),
+    url(r'^$', 'spo_app.views.index', name='index'),
     url(r'^gallery/', 'spo_app.views.home', name='home'),
     url(r'^account/',include('django.contrib.auth.urls')),
     url(r'^forgot-password/$','spo_app.views.forgot_password',name="forgot-password"),
@@ -21,32 +21,32 @@ urlpatterns = patterns('',
 
     #SECTION 1: Public Pages
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^index$', 'spo_app.views.index', name='index'),
     url(r'^profile_form/', 'spo_app.views.profile_form'),
     url(r'^faq/', 'spo_app.views.faq'),
     url(r'^mailing_list/', 'spo_app.views.mailing_list'), 
     
     #SECTION 2: Vendor Pages
-    url(r'^vendor_faq/(?P<pageno>\d+)/', 'spo_app.views.vendor_faq', name='vendor_faq_with_pageno'),
-    url(r'^vendor_faq/', 'spo_app.views.vendor_faq', name='vendor_faq'),
-    url(r'^vendor_home/', 'spo_app.views.vendor_home'),
-    url(r'^vendor_login/', 'spo_app.views.vendor_login', name="vendor_login"),
-    url(r'^vendor_signup/', 'spo_app.views.vendor_signup', name="vendor_signup"),
-    url(r'^vendor_images/', 'spo_app.views.vendor_images', name="vendor_images"),
-    url(r'^vendor_pending/', 'spo_app.views.vendor_pending', name="vendor_pending"),
+    url(r'^faq/(?P<pageno>\d+)/', 'spo_app.views.vendor_faq', name='vendor_faq_with_pageno'),
+    url(r'^faq/', 'spo_app.views.vendor_faq', name='vendor_faq'),
+    url(r'^home/', 'spo_app.views.vendor_home'),
+    url(r'^login/', 'spo_app.views.vendor_login', name="vendor_login"),
+    url(r'^signup/', 'spo_app.views.vendor_signup', name="vendor_signup"),
+    url(r'^my_images/', 'spo_app.views.vendor_images', name="vendor_images"),
+    url(r'^pending/', 'spo_app.views.vendor_pending', name="vendor_pending"),
     url(r'^image_manager/(?P<vendor_id>\d+)/', 'spo_app.views.market_contract_image'),
     url(r'^image_manager/delete/', 'spo_app.views.market_contract_image_delete'),
+    url(r'^image_manager/info/', 'spo_app.views.market_contract_image_info'),
    
     #SECTION 3: Admin Pages
     url(r'^admin_login/', 'spo_app.views.admin_login'),
-    url(r'^vendor_profile_report/export/', 'spo_app.views.export_report', {'source': 'vendor_profile_report'}),
-    url(r'^vendor_profile_report/', 'spo_app.views.vendor_profile_report'),
-    url(r'^vendor_profile_form/(?P<profile_id>\d+)/', 'spo_app.views.vendor_profile_form'),
-    url(r'^vendor_login_activity/export/', 'spo_app.views.export_report', {'source': 'vendor_login_activity'}),
-    url(r'^vendor_login_activity/', 'spo_app.views.vendor_login_activity'),
+    url(r'^profile_report/export/', 'spo_app.views.export_report', {'source': 'vendor_profile_report'}),
+    url(r'^profile_report/', 'spo_app.views.vendor_profile_report'),
+    url(r'^profile_form/(?P<profile_id>\d+)/', 'spo_app.views.vendor_profile_form'),
+    url(r'^login_activity/export/', 'spo_app.views.export_report', {'source': 'vendor_login_activity'}),
+    url(r'^login_activity/', 'spo_app.views.vendor_login_activity'),
     
     #GLOBALS
     url(r'^logout/$', 'django.contrib.auth.views.logout',
-    {'next_page': '/vendor_login/'}),
+    {'next_page': '/login/'}),
     
 )

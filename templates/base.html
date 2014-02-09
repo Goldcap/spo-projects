@@ -11,7 +11,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-  <title>UrbanSpace — Makers | Artists | Farmers | Chefs</title>
+  <title>Special Project Office: Project Moma</title>
 
   <!-- Included CSS Files (Uncompressed) -->
   <!--
@@ -25,23 +25,27 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/app.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/spo.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/custom.css" /> 
+  <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/bootstraps.css" /> 
   <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jquery-datepicker/smoothness.datepick.css" />
   <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jquery-growl/stylesheets/jquery.growl.css" />
-  
+  <link href="{{ STATIC_URL }}javascripts/jquery-editable/jquery-editable/css/jquery-editable.css" rel="stylesheet"/>
+
   <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
   <link rel="stylesheet" href="{{ STATIC_URL }}javascripts/jQuery-File-Upload-8.3.2/css/jquery.fileupload-ui.css">
 
-  <script src="{{ STATIC_URL }}javascripts/foundation-3/modernizr.foundation.js"></script
+  <script src="{{ STATIC_URL }}javascripts/foundation-3/modernizr.foundation.js"></script>
   <script src="{{ STATIC_URL }}javascripts/lodash.js"></script>
   <script src="{{ STATIC_URL }}javascripts/jquery.js"></script>
-  <script src="{{ STATIC_URL }}javascripts/common.js"></script
+  <script src="{{ STATIC_URL }}javascripts/common.js"></script>
   <script src="{{ STATIC_URL }}javascripts/jquery.form.js"></script> 
   <script src="{{ STATIC_URL }}javascripts/jquery-validation-1.9.0/jquery.validate.js"></script>          
   <script src="{{ STATIC_URL }}javascripts/foundation-3/jquery.foundation.reveal.js"></script>
-  <script src="{{ STATIC_URL }}javascripts/jquery-datepicker/jquery.datepick.js"></script>                       
-  <script src="{{ STATIC_URL }}javascripts/apiConnection.js"></script>
-  <script src="{{ STATIC_URL }}javascripts/forms/usmForm.js"></script>
-  <script src="{{ STATIC_URL }}javascripts/jquery-growl/javascripts/jquery.growl.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/jquery-datepicker/jquery.datepick.js"></script>  
+  <script src="{{ STATIC_URL }}javascripts/jquery-growl/javascripts/jquery.growl.js"></script>                          
+  <script src="{{ STATIC_URL }}javascripts/poshytip-1.2/src/jquery.poshytip.min.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/jquery-editable/jquery-editable/js/jquery-editable-poshytip.min.js"></script>
+  <script src="{{ STATIC_URL }}javascripts/jquery-masonry/masonry.pkgd.min.js"></script>
+
   <!-- Included JS Files (Compressed) -->
   
   <script src="{{ STATIC_URL }}javascripts/jQuery-File-Upload-8.3.2/js/vendor/jquery.ui.widget.js"></script>
@@ -81,29 +85,29 @@
         </div>
         
     </div>
+    
+    <div class="row main pink">
+    
+        <div class="small-12 columns inset toppity">
+            
+        </div>
+        
+    </div>
 
 {% block content %}Empty page{% endblock %}
 
   <!-- Footer -->
 
-   <footer>
-  	<div class="row">
-    <div class="twelve columns">
-
-      <div class="row">
-        <div class="six columns">
-          <p>&copy; 2013 Urban Space. All Rights Reserved.</p>
+    <div class="row footer">
+        <div class="twelve columns">
+            <div class="row footer">
+                <div class="six columns">
+                    <p>&copy; 2014 Special Project Office. All Rights Reserved.</p>
+                </div>
+                
+            </div>
         </div>
-        <div class="six columns">
-          <ul class="link-list right">
-            <li><a href="http://blvdcreative.net"><img src="{{ STATIC_URL }}images/foundation/custom/blvd.jpg" alt="BLVD//creative" /></a></li>
-
-          </ul>
-        </div>
-      </div>
     </div>
-    </div>
-  </footer>
   
   <!-- End Footer -->
   <div id="Modal" class="reveal-modal large"></div>

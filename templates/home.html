@@ -1,62 +1,63 @@
 {% extends "base.html" %}
 {% block content %}
 
+  {% if user.is_authenticated %}
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a href="/">Home</a></li> 
+            <li><a href="/gallery">The Gallery</a></li> 
+            <li><a class="active" href="#">My Profile</a></li> 
+            <li><a href="/my_images">My Photos</a></li>              
+            <li><a href="/logout">Logout</a></li>
+            <li style="float:right;">{{ user.email }}</li>
+         </ul>
+		
+    </div>
+  </div>
+  {% else %}
+  
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a href="/">Home</a></li> 
+            <li><a href="/gallery">The Gallery</a></li> 
+            <li style="float:right;"><a href="/login">Login</a></li>
+         </ul>
+    </div>
+  </div>
+  
+  {% endif %}
+    
   <!-- Main Page Content and Sidebar -->
 
   <div class="row">
 
     <!-- Main Blog Content -->
-    <div class="eight offset-by-two columns settop" role="main">
+    <div class="twelve columns" role="main" id="container">
         
-        <h5>Public Pages</h5>
-        <ul>
-            <li><a href="/index">1.00 Homepage</a></li>
-            <li><a href="">1.10 Mailing List</a></li>
-            <li><a href="/profile_form">1.20 Vendor Profile</a></li>
-            <li><a href="/faq">1.30 FAQ</a></li>
-        </ul>
+        {% if vendor_images %}
+            {% for image in vendor_images %}
+                <div class="item">
+                    <img id="display_{{image.id}}" src="/static/media/{{image.ImgFile.url}}" alt="" />
+                </div>
+            {% endfor %}
+        {% else %}
         
-        <h5>Vendor Pages</h5>
-        <ul>
-            <li><a href="/vendor_login">2.00 Vendor Login</a></li>
-            <li><a href="/vendor_signup">2.01 Vendor Signup</a></li>
-            <li><a href="/vendor_home">2.10 Vendor Homepage</a></li>
-            <li><a href="/vendor_images">2.11 Vendor Images</a></li>  
-            <li><a href="/my_market">2.20 Vendor Markets</a></li>
-            <li>
-                2.21 Vendor Market Contract And Deposit
-                <ol>
-                    <li><a href="/market_contract_one/1">2.22 Contact and Products</a></li>
-                    <li><a href="/market_contract_three/1">2.23 Categories and Statement</a></li>
-                    <li><a href="/market_contract_four/1">2.24 Images and Pledge</a></li>
-                    <li><a href="/payment_info/1">2.25 Payment Info</a></li>
-                </ol>
-            </li>
-            <li><a href="/vendor_faq">2.30 Vendor FAQ</a></li>
-        </ul>
-        
-        <h5>Admin Pages</h5>
-        <ul>
-            <li><a href="/admin_login">3.00 Admin Login</a></li>
-            <li><a href="/vendor_profile_report">3.50 Vendor Profiles</a></li>
-            <li><a href="/market_listings">3.01 Market Listings</a></li>
-            <li><a href="/customer_report">3.30 Mailing List Reports</a></li>
-            <li><a href="/vendor_login_activity">3.40 Vendor Login Reports</a></li>
-            <li><a href="/vendor_accounts_report">3.10 Vendor Accounts</a></li>
-            <li>
-                3.15 Vendor Application Detail
-                <ol>
-                    <li><a href="/vendor_application_detail">3.16 Contact and Products</a></li>
-                    <li><a href="/vendor_application_detail_2">3.17 Categories and Statement</a></li>
-                    <li><a href="/vendor_application_detail_3">3.18 Images and Pledge</a></li>
-                </ol>
-            </li>
-            <li><a href="/accounts_report">3.20 Accounting Reports</a></li>
-        </ul>
+        <h4>No Images, check back later.</h4>
+        {% endif %}
         
     </div>
      
   </div>
-
+  
+  <script type="text-javascript">
+    var container = document.querySelector('#container');
+    var msnry = new Masonry( container, {
+      // options
+      columnWidth: 200,
+      itemSelector: '.item'
+    });
+  </script>
   <!-- End Main Content and Sidebar -->
 {% endblock %}

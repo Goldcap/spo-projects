@@ -45,8 +45,36 @@ function submit_page(val)
     return false;
 }
 
+function removeImage( type, image ) {
+    if (confirm("Are you sure you want to delete this image?")) {
+        ajax_req = $.ajax({
+            url: '/image_manager/delete/',
+            type: "POST",
+            data: {
+                    "atype":type,
+                    "image":image
+                },
+            success: function(data) {
+                $("#tr_"+type+"_"+data.image+"."+type).remove();
+                console.log(type);
+                console.log($("tr."+type).length);
+                if ($("tr."+type).length == 1) {
+                    $("#tr_"+type+"_0"+"."+type).fadeIn();
+                }
+                linkImages();
+            },
+            error: function(data) {
+            }
+        });
+    }
+}
+
 function linkImages() {
-    console.log("Linking...");
+    
+    $(".image").unbind( "click" );
+    $(".overlay").unbind( "click" );
+    $(".inline-editable-checkbox").unbind( "click" );
+    
     $(".image").mouseover(function(e){
         $(this).prev().show().delay(3000).fadeOut();
         //addClass("image_rollover");
@@ -55,56 +83,57 @@ function linkImages() {
     $(".image").click(function(e){
         var type = $(this).attr("type");
         var image = this.id.replace(type+"_","");
-                
-        if (confirm("Are you sure you want to delete this image?")) {
-            ajax_req = $.ajax({
-                url: '/market_contract_image/delete/',
-                type: "POST",
-                data: {
-                        "atype":type,
-                        "image":image
-                    },
-                success: function(data) {
-                    $("#tr_"+type+"_"+data.image+"."+type).remove();
-                    console.log(type);
-                    console.log($("tr."+type).length);
-                    if ($("tr."+type).length == 1) {
-                        $("#tr_"+type+"_0"+"."+type).fadeIn();
-                    }
-                    $(".image").unbind( "click" );
-                    linkImages();
-                },
-                error: function(data) {
-                }
-            });
-        }
+        removeImage(type, image);
     });
     
-}
-
-function linkProducts() {
-
-    $("ul.products li .wrapper .delete").click(function(e){
-        var product = this.id.replace("product_","");
-        if (confirm("Are you sure you want to delete this product?")) {
-            ajax_req = $.ajax({
-                url: '/market_contract_two/delete/',
-                type: "POST",
-                data: {
-                        "product":product
-                    },
-                success: function(data) {
-                    $("ul.products li .wrapper .delete").unbind( "click" );
-                    getProducts();
+    $(".overlay").click(function(e){
+        var type = $(this).attr("type");
+        var image = this.id.replace(type+"_","");
+        removeImage(type, image);
+    });
+    
+    $('.inline-editable-checkbox').click(function(e){
+        
+        e.preventDefault();
+        
+        var pk = $(this).data("pk");
+        var value = ($(this).text() == "Yes") ? 0 : 1;
+        
+        var scope = this;
+        ajax_req = $.ajax({
+            url: '/image_manager/info/',
+            type: "POST",
+            data: {
+                    "name":"status",
+                    "pk":pk,
+                    "value":value
                 },
-                error: function(data) {
+            success: function(response) {
+                if (response.status == 'success') {
+                    if (response.value == 1) {
+                        $(scope).text('Yes');
+                    } else {
+                        $(scope).text('No');
+                    }
                 }
-            });
+            },
+            error: function(data) {
+            }
+        });
+    });
+    
+    $('.inline-editable').editable({
+        success: function(response, newValue) {
+            if(response.status == 'error') return response.msg; //msg will be shown in editable form
         }
     });
+
     
 }
 
 $(document).ready(function() {
-    linkImages();    
+    $.fn.editable.defaults.mode = 'inline';
+    
+    linkImages();
+    
 });

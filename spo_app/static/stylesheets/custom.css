@@ -13,13 +13,49 @@ body{
 	font-size:10px!important		
 }
 
+h4 {
+    color: #ED008C !important;
+}
+
 .row {
     background-color: white;
-    padding-left: 30px;
+    /*padding-left: 30px;*/
 }
 
 .row.main, .row.main .row {
     padding-left: 0px !important;
+}
+
+.row.content {
+    min-height: 500px;
+}
+
+.button {
+    background: none repeat scroll 0 0 #ED008C;
+    border: 1px solid #1E728C;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 10px 20px 11px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.15s ease-in-out 0s;
+    width: auto;
+}
+.button:hover, .button:focus {
+    background-color: #8F0056;
+    color: #FFFFFF;
+}
+
+.toppity {
+    height: 10px;
 }
 /*Header*/
 .header .logo {
@@ -41,8 +77,8 @@ body{
 .nav-bar > li{
 	border:none!important	
 }
-.nav-bar > li > a:hover,ul.sub-nav li a.active {
-	color:#D10000!important;	
+.nav-bar > li > a:hover, ul.sub-nav li a.active, a:hover {
+	color:#ED008C !important;	
 }
 .red{
 	color:#D10000	
@@ -190,12 +226,10 @@ table.images-upload tr td:last-child{
 }
 
 /*Footer*/
-footer{
-	font-family:Georgia,"Times New Roman",Times,serif;
+.footer{
 	color:#BBBBBB;
 	width:100%;
-	border-top:1px solid #CCCCCC;
-	padding-top:20px	
+    padding-top: 20px;
 }
 
 .cappie { text-transform: capitalize }
@@ -231,9 +265,126 @@ th.email {
     position: absolute;
     width: 16px;
     height: 16px;
-    left: 25px;
+    margin-left: 5px;
     margin-top:5px;
     background: url('/static/images/Neu/16x16/actions/dialog-cancel.png') 0 0 no-repeat;
     padding: 1px;
     display: none;
+}
+
+.hotspot {
+    border: 1px dotted #ccc;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
+.hotspot:hover {
+    background: #ddd;
+}
+
+#progress {
+    display: none;
+}
+
+#filetable li div.theimage {
+    float: left;
+    padding: 5px;
+    border: 1px dotted #ccc;
+    margin: 5px;
+}
+#filetable li div.theinfo {
+    float: left;
+    width: 50%;
+}
+#filetable li div.theinfo i {
+    font-size: 12px;
+    color: #666;
+}
+#filetable li div.theinfo a.breaker {
+    float: left;
+    clear: both;
+}
+
+#filetable li div.theinfo a.nobreaker {
+    float: left;
+}
+
+#filetable li div.theinfo span.status {
+    clear: both;
+    float: left;
+    margin-right: 5px; 
+}
+
+.editable-input input[type="text"], 
+.editable-input input[type="textarea"] {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    height: 18px;
+    margin: 2px 0px 12px 0px;
+    padding: 2px !important;
+    transition: all 0.15s linear 0s;
+    width: 90%;
+}
+
+.editable-input textarea {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 12px;
+    height: 50px;
+    margin: 2px 0px 12px 0px;
+    padding: 2px !important;
+    transition: all 0.15s linear 0s;
+    width: 90%;
+}
+
+.editable-submit, .editable-cancel {
+    background: none repeat scroll 0 0 #ED008C;
+    border: 1px solid #1E728C;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 4px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.15s ease-in-out 0s;
+    width: auto;
+}
+
+.editable-submit:hover, .editable-submit:focus, .editable-cancel:hover, .editable-cancel: focus {
+    background-color: #8F0056;
+    color: #FFFFFF;
+}
+
+.editable-container.editable-inline {
+    clear: both;
+}
+
+.editable-clear-x {
+    margin-top: -4px !important;
+    right: 18px !important;
+    top: 30% !important;
+}
+
+.editable-error {
+    font-size: 10px !important;
+    margin-top: -10px !important;
 }

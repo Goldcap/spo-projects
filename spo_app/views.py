@@ -45,14 +45,6 @@ def forgot_password(request):
     else:
         return render(request, 'forgot_password.html')
 
-def home(request):
-    """
-    page index
-    """
-    
-    return render_to_response('home.html', {
-    }, context_instance=RequestContext(request))
-     
 def index(request):
     """
     site index
@@ -60,6 +52,15 @@ def index(request):
     return render_to_response('index.html', {
     }, context_instance=RequestContext(request))
 
+def home(request):
+    """
+    page index
+    """
+    form_values = request.POST
+    vendor_images = VendorImage.objects.filter( status = 1)
+    
+    return render_to_response('home.html', {'vendor_images':vendor_images}, 
+    context_instance=RequestContext(request))
 
 ######################
 #  Public Features   #
@@ -104,9 +105,9 @@ def vendor_login(request):
                 if ('next' in request.GET):
                     return redirect(request.GET['next'])
                 else:
-                    return redirect('/vendor_home/')
+                    return redirect('/home/')
             elif user:
-                return redirect('/vendor_pending/')
+                return redirect('/pending/')
         except:
             pass
         
@@ -142,9 +143,9 @@ def vendor_signup(request):
                     if ('next' in request.GET):
                         return redirect(request.GET['next'])
                     else:
-                        return redirect('/vendor_home/')
+                        return redirect('/home/')
                 else:
-                    return redirect('/vendor_pending/')
+                    return redirect('/pending/')
         except:
             pass
             
@@ -278,9 +279,8 @@ def vendor_home(request):
     else:
         vendor = VendorProfile.objects.get(user=request.user)
         form = VendorForm(instance=vendor)
-        vendor_images = vendor.SelectedImages.all()
     
-    return render_to_response('vendor-home.html', {'vendor':vendor,'form':form,'images':vendor_images},
+    return render_to_response('vendor-home.html', {'vendor':vendor,'form':form},
     context_instance=RequestContext(request))
 
 @login_required
@@ -289,7 +289,7 @@ def vendor_images(request):
     My Photos
     """
     vendor = VendorProfile.objects.get(user=request.user)
-    images = VendorImage.objects.filter(user=request.user)
+    images = VendorImage.objects.filter(user=request.user).order_by('-dateAdded')
     
     return render_to_response('vendor-images.html', 
         {'vendor':vendor,
@@ -308,7 +308,7 @@ def market_contract_image(request, vendor_id):
         
     if request.method == 'POST':
         
-        atype = request.POST["atype"]
+        atype = 'vendor'
         
         profile = VendorProfile.objects.get(pk=vendor_id)
             
@@ -322,24 +322,32 @@ def market_contract_image(request, vendor_id):
         filename = wrapped_file.name
         file_size = wrapped_file.file.size
         
+        title = 'Empty'
+        caption = 'Empty'
+        
         theimage = VendorImage()
         if ('title' in request.POST):
-            theimage.caption = request.POST["title"]
+            theimage.title = request.POST["title"]
+            title = theimage.title
+        if ('caption' in request.POST):
+            theimage.caption = request.POST["caption"]
+            caption = theimage.caption
         theimage.filename=str(thefile)
         theimage.ImgFile=file
         theimage.user = request.user
+        theimage.dateAdded = datetime.now()
+        #print datetime.now()
         theimage.save()
-        filename = theimage.caption
         
-        profile.SelectedImages.add(theimage)
         id = theimage.id
-        im = get_thumbnail(theimage.ImgFile, "80x80", quality=50)
+        im = get_thumbnail(theimage.ImgFile, "160x160", quality=50)
         thumb_url = "/static/media/" + im.url
         file_url = "/static/media/uploads/vendor_images/" + filename
             
         files = []
         files.append({ "id":id, 
-                       "name":filename, 
+                       "title":title, 
+                       "caption":caption, 
                        "size":file_size, 
                        "url":file_url, 
                        "thumbnail_url":thumb_url,
@@ -360,7 +368,7 @@ def market_contract_image_delete(request):
     response_data = None    
     if request.method == 'POST':
         
-        atype = request.POST["atype"]
+        atype = 'vendor'
         iid = request.POST["image"]
         
         theimage = VendorImage.objects.get(pk=iid)
@@ -372,7 +380,46 @@ def market_contract_image_delete(request):
         response_data = json.dumps(result)
         
     return HttpResponse(response_data, mimetype='application/json')
+
+@login_required
+@csrf_exempt
+def market_contract_image_info(request):
+    """
     
+    Market Contract Image INfo 
+    
+    """
+    
+    response_data = None    
+    status = 'error'
+    msg = 'There was an error, please try again.'
+    if request.method == 'POST':
+        
+        atype = 'vendor'
+        name = request.POST["name"]
+        pk = request.POST["pk"]
+        value = None
+        if "value" in request.POST:
+            value = request.POST["value"]
+        if "value[]" in request.POST:
+            value = request.POST["value[]"]
+        
+        if pk:
+            theimage = VendorImage.objects.get(pk=pk)
+            if theimage.user == request.user:
+                print getattr(theimage,name)
+                setattr(theimage,name,value)
+                theimage.save()
+                status = 'success'
+        
+        result = {"status": status,
+                  "msg": msg,
+                  "value": value}
+        response_data = json.dumps(result)
+        
+    return HttpResponse(response_data, mimetype='application/json')
+    
+        
 @login_required
 def vendor_faq(request, pageno='1'):
     """

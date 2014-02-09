@@ -3,11 +3,41 @@
 
   <!-- Main Page Content and Sidebar -->
 
+  {% if user.is_authenticated %}
   <div class="row">
-
-    INDEX
-     
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a href="/">Home</a></li> 
+            <li><a href="/gallery">The Gallery</a></li> 
+            <li><a class="active" href="#">My Profile</a></li> 
+            <li><a href="/my_images">My Photos</a></li>              
+            <li><a href="/logout">Logout</a></li>
+            <li style="float:right;">{{ user.email }}</li>
+         </ul>
+		
+    </div>
   </div>
+  {% else %}
+  
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">
+            <li><a href="/">Home</a></li> 
+            <li><a href="/gallery">The Gallery</a></li>
+            <li style="float:right;"><a href="/login">Login</a></li>
+         </ul>
+    </div>
+  </div>
+  
+  {% endif %}
 
+    <div class="row">
+
+        <!-- Main Blog Content -->
+        <div class="twelve columns" role="main">
+            <h4>Nothing yet :)</h4>
+        </div>
+        
+    </div> 
   <!-- End Main Content and Sidebar -->
 {% endblock %}

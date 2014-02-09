@@ -3,19 +3,19 @@
 
   <!-- Main Page Content and Sidebar -->
 
-  <div class="row">
+  <div class="row content">
 
     <!-- Main Blog Content -->
     <div class="eight columns settop" role="main">
 
-        <h4>Vendor Login</h4>
+        <h4>User Login</h4>
 		
         <div class="row">
          <div class="twelve columns">
             <form id="main_form" action="#" method="POST">{% csrf_token %}
          	 <div class="row">
                     <div class="six columns">
-                    <label class="h6">Current Vendors</label>
+                    <label class="h6">Current Users</label>
                     <span id="validation_msg_email" style="color:Red;display:none;">Please enter valid email address</span>
                     <input type="text" name="Email" id="id_Email" placeholder="Email" value="{{ form_values.Email }}">
                     <input type="password" name="Password" id="id_Password" placeholder="Password" value="{{ form_values.Password }}">
@@ -50,7 +50,7 @@
 	<div class="panel panel-white">
         <div class="row">
             <div class="twelve columns">
-                <img src="/static/images/foundation/custom/logined.jpg" alt="">
+                <img src="/static/images/population.jpg" alt="">
             </div>
         </div>
       

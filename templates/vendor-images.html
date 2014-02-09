@@ -6,12 +6,14 @@
   <div class="row">
   	<div class="twelve column">
     	 <ul class="sub-nav">
+            <li><a href="/">Home</a></li> 
             <li><a href="/gallery">The Gallery</a></li> 
-            <li><a href="/vendor_home/">My Profile</a></li> 
-            <!--<li><a href="/market_select/">Make a Payment</a></li>-->
-            <li><a class="active" href="#">My Photos</a></li>
+            <li><a href="/home/">My Profile</a></li> 
+            <li><a class="active" href="#">My Photos</a></li>            
+            <li><a href="/logout">Logout</a></li>
+            <li style="float:right;">{{ user.email }}</li>
          </ul>
-		
+         
     </div>
   </div>
   
@@ -31,139 +33,148 @@
   {% endblock %}
   
   	<div class="row">
+        
+        <span class="hotspot">
 	
     <!-- Main Blog Content -->
-    <div class="twelve columns settop" role="main">
-
-    	<div class="row">
-        	<div class="eight columns">
-            	<h5><a href="">{{ vendor.Company }}</a></h5>
-            </div>
-            
-            <aside class="four columns">
-            	<div class="row">
-                	<div class="twelve columns">
-                    	<h5><a href=""> {{ user.email }} </a></h5>
-                    </div>
-                </div>
-            </aside>
-        </div>
-        
-        <div class="row">
-        	<div class="twelve columns">
+        	
+        	<div class="twelve column">
             	<p>&nbsp;</p>
             </div>
-        </div>
-        
-        
-        <div class="row">
-        	<div class="twelve columns">
+            
+        	<div class="twelve column">
             	<h6>Images</h6>
-        		<p>Upload as many images as you'd like. We might use these images in printed materials, so please use high resolution images.</p>
-               		<div class="row">
-                        <!--<div class="six columns">
-                        <span id="validation_msg_fea_mer_title" style="color:Red;display:none;">Caption is required</span>
-                        <input type="text" name="Caption" id="id_Caption" placeholder="Title" >
-                        </div>-->
-                        
-                        <div class="six columns">
-                        	<ul class="button-group group-newmargin">
-                                <li><a href="#" class="button radius">Upload Image(s)</a></li>
-                            </ul>
-                            
-                            <!-- The fileinput-button span is used to style the file input field as button -->
-                            <span class="btn btn-success fileinput-button">
-                                <!-- The file input field used as target for the file upload widget -->
-                                <input id="merchfileupload" type="file" name="files[]" multiple>
-                            </span>
-                            
-                            <br />
-                        </div>
-                    </div>
+        		<p>Upload as many images as you'd like, by either selecting an image, or dragging them from your desktop to the dotted area. We might use these images in printed materials, so please use high resolution images.</p>
+       		    <!--<div class="six columns">
+                <span id="validation_msg_fea_mer_title" style="color:Red;display:none;">Caption is required</span>
+                <input type="text" name="Caption" id="id_Caption" placeholder="Title" >
+                </div>-->
+                
+                <div class="six column">
+                	<ul class="button-group group-newmargin">
+                        <li><a href="#" class="button radius">Upload Image(s)</a></li>
+                    </ul>
+                    
+                    <!-- The fileinput-button span is used to style the file input field as button -->
+                    <span class="btn btn-success fileinput-button">
+                        <!-- The file input field used as target for the file upload widget -->
+                        <input id="merchfileupload" type="file" name="files[]" multiple>
+                    </span>
+                    
+                    <br />
+                </div>
+            
+            <!-- The global progress bar -->
+            <div id="progress" class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
                  
             </div>
-        </div>
         
-        <div class="row">
-        	<div class="six columns">
+        	<div class="twelve column">
             	<h6>Uploaded Images:</h6>
              	
-                <div class="row">
-                    <div class="six columns">
                             
-                        <table id="filetable" style="width:100%">
-                            {% if images %}
-                            {% for animage in images %}
-                        	<tr id="tr_vendor_{{animage.id}}" class="vendor">
-                            	<td style="width:80px">
-                                    <div class="overlay"></div>                            
-                                    <img id="{{animage.id}}" type="vendor" class="image" src="{{animage.thumbnail}}" alt="" />
-                                </td>
-                                <td>
-                                   {{ animage.caption }}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            {% endif %}
-                            <tr id="tr_vendor_0" class="vendor" {% if images %}style="display:none"{% endif %}>
-                            	<td colspan="2">
-                                   No uploaded images.
-                                </td>
-                            </tr>
-                        </table>
-                        
-                    </div>
-                </div>
+                <ul id="filetable" class="display block-grid two-up products">
+                
+                    {% if images %}
+                    {% for animage in images %}
+                	<li id="tr_vendor_{{animage.id}}" class="vendor">
+                    	<div class="theimage">
+                            <div class="overlay"></div>                            
+                            <img id="{{animage.id}}" type="vendor" class="image" src="{{animage.thumbnail}}" alt="" />
+                        </div>
+                        <div class="theinfo">
+                           <span class="status">Gallery?</span><a href="#" class="nobreaker inline-editable-checkbox" id="status" data-type="checklist" data-pk="{{animage.id}}" data-url="/image_manager/info/" data-title="Show in Gallery?">{{animage.status|yesno:"Yes,No"}}</a>
+                           <br /><br />
+                           <a href="#" class="breaker inline-editable title" id="title" data-type="text" data-pk="{{animage.id}}" data-url="/image_manager/info/" data-title="Enter a Title">{{animage.title}}</a>
+                           <i><a href="#" class="breaker inline-editable" id="caption" data-type="textarea" data-pk="{{animage.id}}" data-url="/image_manager/info/" data-title="Enter a Brief Caption">{{animage.caption}}</a></i>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    {% endif %}
+                    <li id="tr_vendor_0" class="vendor" {% if images %}style="display:none"{% endif %}>
+                    	<span>
+                           No uploaded images.
+                        </span>
+                    </li>
+                    
+                </ul>
                 
             </div>
-            <div class="six columns"></div>
-        </div>
+            
+            <div class="six column">
+                &nbsp;
+            </div>
         
         <!-- End Main Content and Sidebar -->
         <script type="text/javascript">
+        var vendor_id = {{ vendor.id }};
+        {% verbatim %}
         $(function () {
+            _.templateSettings = {
+              'interpolate': /{{([\s\S]+?)}}/g
+            };
+            var image_template = '<li id="tr_vendor_{{id}}" class="vendor">\
+                                <div class="theimage">\
+                                    <div class="overlay"></div>\
+                                    <img id="{{id}}" class="image" type="vendor" src="{{thumbnail}}" alt="" />\
+                                </div>\
+                                <div class="theinfo">\
+                                   <span class="status">Gallery?</span>\
+                                   <a href="#" class="nobreaker inline-editable-checkbox" id="status" data-type="checklist" data-pk="{{id}}" data-url="/image_manager/info/">\
+                                   {{status}}\
+                                   </a>\
+                                   <br /><br />\
+                                   <a href="#" class="breaker inline-editable title" id="title" data-type="text" data-pk="{{id}}" data-url="/image_manager/info/" data-title="Enter a Title">{{title}}</a>\
+                                   <i><a href="#" class="breaker inline-editable" id="caption" data-type="textarea" data-pk="{{id}}" data-url="/image_manager/info/" data-title="Enter a Brief Caption">{{caption}}</a></i>\
+                                </div>\
+                            </li>';
+                        
             'use strict';
             // Change this to the location of your server-side upload handler:
-            var url = '/image_manager/{{ vendor.id }}/';
+            var url = '/image_manager/'+vendor_id+'/';
             $('#merchfileupload').fileupload({
                 url: url,
                 dataType: 'json',
-                formData: {atype: 'vendor'
-                           //title: $("#id_Caption").val(),
-                           },
+                send: function (e, data) {
+                    $("#progress").show(); 
+                },
+                
                 done: function (e, data) {
                     $.each(data.result.files, function (index, file) {
                         $("#tr_vendor_0.vendor").hide();
-                        var text = '<tr id="tr_vendor_'+file.id+'" class="vendor"><td style="width:80px"><div class="overlay"></div><img id="vendor_'+file.id+'" class="image" type="vendor" src="'+file.thumbnail_url+'" alt="" /></td><td>'+file.name+'</td></tr>';
-                        $(text).appendTo('#filetable');
+                        var text = _.template(image_template, { 
+                                                        'id': file.id,
+                                                        'thumbnail':file.thumbnail_url,
+                                                        'status':'No',
+                                                        'title':file.title,
+                                                        'caption':file.caption });
+                        //var text = '<li id="tr_vendor_'+file.id+'" class="vendor"><div class="theimage"><div class="overlay"></div><img id="vendor_'+file.id+'" class="image" type="vendor" src="'+file.thumbnail_url+'" alt="" /></div><div><h5>'+file.title+'</h5>'+file.caption+'</div></li>';
+                        $(text).prependTo('#filetable');
+                        $("#progress").show().delay(1000).fadeOut();
                         linkImages();
                     });
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progress .progress-bar').css(
+                        'width',
+                        progress + '%'
+                    );
                 }
             });
         });
+        {% endverbatim %}
         </script>
 
         
-      		<div class="row">
-                <div class="twelve columns">
-                    <p>&nbsp;</p>
-                </div>	
-            </div>
-        
-     
- 		
-    </div>
-
     <!-- End Main Content -->
 
-
-    <div class="row">
-         <div class="twelve columns">
-         	<p>&nbsp;</p>
-         </div>
-    </div>
-    
      </form>
+     
+     </span>
+     
   </div>
 
 {% endblock %}

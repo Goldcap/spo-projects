@@ -45,7 +45,7 @@ SITE_ID = 1
 
 AUTH_PROFILE_MODULE = 'spo_app.VendorProfile'
 
-LOGIN_URL = '/vendor_login/'
+LOGIN_URL = '/login/'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.

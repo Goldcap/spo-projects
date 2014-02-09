@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.utils.timezone import utc
 
 from django.db import models
 from django.contrib.auth.models import User, Group 
@@ -17,7 +18,7 @@ class MailingListSource(models.Model):
     Mailing List List
     """
     Name = models.CharField(max_length=100)
-    DateAdded = models.DateTimeField(default=datetime.now(), blank=True, null=True)
+    DateAdded = models.DateTimeField(default=datetime.utcnow().replace(tzinfo=utc), blank=True, null=True)
     
     class Meta:
         verbose_name = "Mailing List"
@@ -34,10 +35,12 @@ class VendorImage(models.Model):
     filename = models.CharField(max_length=100, blank=True)
     title = models.CharField(max_length=100, blank=True)
     caption = models.CharField(max_length=100, blank=True)
+    status = models.IntegerField(default=0)
+    dateAdded = models.DateTimeField(default=datetime.utcnow().replace(tzinfo=utc), blank=True, null=True)
 
     @property
     def thumbnail(self):
-        im = get_thumbnail(self.ImgFile, "80x80", quality=50)
+        im = get_thumbnail(self.ImgFile, "160x160", quality=50)
         return "/static/media/" + im.url
 
 #http://stackoverflow.com/questions/1760421/how-can-i-render-a-manytomanyfield-as-checkboxes
@@ -117,7 +120,7 @@ class MailingList(models.Model):
     LastName = models.CharField(max_length=100)
     EmailAddress = models.CharField(max_length=300, blank=True, null=True)
     ZipCode = models.CharField(max_length=100, blank=True, null=True)
-    DateAdded = models.DateTimeField(default=datetime.now(), blank=True, null=True)
+    DateAdded = models.DateTimeField(default=datetime.utcnow().replace(tzinfo=utc), blank=True, null=True)
 
 class ActivityLog(models.Model):
     """
