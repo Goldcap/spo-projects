@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     #SECTION 2: Vendor Pages
     url(r'^faq/(?P<pageno>\d+)/', 'spo_app.views.vendor_faq', name='vendor_faq_with_pageno'),
     url(r'^faq/', 'spo_app.views.vendor_faq', name='vendor_faq'),
-    url(r'^home/', 'spo_app.views.vendor_home'),
+    url(r'^profile/', 'spo_app.views.vendor_home'),
     url(r'^login/', 'spo_app.views.vendor_login', name="vendor_login"),
     url(r'^signup/', 'spo_app.views.vendor_signup', name="vendor_signup"),
     url(r'^my_images/', 'spo_app.views.vendor_images', name="vendor_images"),
