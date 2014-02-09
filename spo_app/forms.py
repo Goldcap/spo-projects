@@ -89,7 +89,8 @@ class VendorForm(forms.ModelForm):
         #try:
         self.user = User.objects.get(email=self.data['Email'].strip())
         self.user.email = self.data['Email'].strip()
-        self.user.username = self.data['Email'].strip()
+        usernames = self.data['Email'].strip().split('@')
+        self.user.username = usernames[0]
         self.user.save()
 
         rec = VendorProfile.objects.get(user__email=self.data['Email'])
