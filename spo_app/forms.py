@@ -40,7 +40,7 @@ class VendorForm(forms.ModelForm):
     
     class Meta:
         model = VendorProfile
-        fields = ['Company', 'FirstName', 'LastName', 'Telephone', "BusinessTelephone"]
+        fields = ['FirstName', 'Email']
 
     def __init__(self, *args, **kw):
         super(VendorForm, self).__init__(*args, **kw)
@@ -70,18 +70,16 @@ class VendorForm(forms.ModelForm):
         rec = VendorProfile()
         
         rec.user = self.user
-        rec.Company = self.data['Company']
+        #rec.Company = self.data['Company']
         rec.FirstName = self.data['FirstName']
-        rec.LastName = self.data['LastName']
+        #rec.LastName = self.data['LastName']
         rec.Email = self.data['Email']
         #rec.Telephone = self.data['Telephone']
         #rec.BusinessTelephone = self.data['BusinessTelephone']
         rec.Approved = 1
         #rec.Password = hashlib.md5(self.data['Password']).hexdigest()
         
-        print "5"
         rec.save()
-        print "6"
         self._errors = ErrorList(['Successfully submitted!'])
 
     def save_vendor_home(self, request):
