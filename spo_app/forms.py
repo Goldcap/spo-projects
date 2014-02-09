@@ -26,11 +26,11 @@ class UserForm(forms.Form):
 
 class VendorForm(forms.ModelForm):
     FirstName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, error_messages = {'invalid': 'Your First Name is required'})
-    LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=True)
+    LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
     Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)  
     Telephone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your Personal Number'}), required=False)
     BusinessTelephone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your Business Number'}), required=False)
-    Company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Company', 'width': '100%'}), required=True)
+    Company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Company', 'width': '100%'}), required=False)
     Email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}), required=True)
     Password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}), required=True) 
     PasswordConfirm = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Confirm Password'}), required=False) 
@@ -45,11 +45,11 @@ class VendorForm(forms.ModelForm):
     def __init__(self, *args, **kw):
         super(VendorForm, self).__init__(*args, **kw)
         self.fields['FirstName'].initial = self.instance.FirstName
-        self.fields['LastName'].initial = self.instance.LastName
+        #self.fields['LastName'].initial = self.instance.LastName
         self.fields['Website'].initial = self.instance.Website 
-        self.fields['Telephone'].initial = self.instance.Telephone 
-        self.fields['BusinessTelephone'].initial = self.instance.BusinessTelephone 
-        self.fields['Company'].initial = self.instance.Company
+        #self.fields['Telephone'].initial = self.instance.Telephone 
+        #self.fields['BusinessTelephone'].initial = self.instance.BusinessTelephone 
+        #self.fields['Company'].initial = self.instance.Company
         self.fields['ShortDecs'].initial = self.instance.ShortDecs
         if self.instance.user:
             self.fields['Email'].initial = self.instance.user.email
@@ -137,7 +137,7 @@ class VendorForm(forms.ModelForm):
 class VendorProfileForm(forms.ModelForm):
     FirstName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, error_messages = {'invalid': 'Your First Name is required'})
     LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
-    Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=True)  
+    Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)  
     Company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Company'}), required=False)
     Email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}), required=True)
     #Password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}), required=True) 
@@ -147,13 +147,13 @@ class VendorProfileForm(forms.ModelForm):
     
     class Meta:
         model = VendorProfile
-        fields = ['Company', 'FirstName', 'LastName', 'Website', 'ShortDecs',]
+        fields = ['FirstName', 'Website', 'ShortDecs',]
 
     def __init__(self, *args, **kw):
         super(VendorProfileForm, self).__init__(*args, **kw)
-        self.fields['Company'].initial = self.instance.Company
+        #self.fields['Company'].initial = self.instance.Company
         self.fields['FirstName'].initial = self.instance.FirstName
-        self.fields['LastName'].initial = self.instance.LastName  
+        #self.fields['LastName'].initial = self.instance.LastName  
         self.fields['Website'].initial = self.instance.Website
         self.fields['ShortDecs'].initial = self.instance.ShortDecs
         
@@ -172,7 +172,7 @@ class VendorProfileForm(forms.ModelForm):
         rec, created = VendorProfile.objects.get_or_create(Company=self.cleaned_data['Company'])
         rec.user = self.user
         rec.FirstName = self.cleaned_data['FirstName']
-        rec.LastName = self.cleaned_data['LastName']
+        #rec.LastName = self.cleaned_data['LastName']
         rec.Website = self.cleaned_data['Website']
         rec.save()
         
