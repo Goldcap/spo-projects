@@ -136,9 +136,9 @@ class VendorForm(forms.ModelForm):
 
 class VendorProfileForm(forms.ModelForm):
     FirstName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, error_messages = {'invalid': 'Your First Name is required'})
-    LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=True)
+    LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
     Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=True)  
-    Company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Company'}), required=True)
+    Company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Company'}), required=False)
     Email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}), required=True)
     #Password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}), required=True) 
     #PasswordConfirm = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Confirm Password'}), required=True) 
