@@ -15,9 +15,9 @@
             <form id="main_form" action="#" method="POST">{% csrf_token %}
          	 <div class="row">
                     <div class="six columns">
-                    <label class="h6">Current Users</label>
-                    <span id="validation_msg_email" style="color:Red;display:none;">Please enter valid email address</span>
-                    <input type="text" name="Email" id="id_Email" placeholder="Email" value="{{ form_values.Email }}">
+                    <label class="h6">Current Students</label>
+                    <span id="validation_msg_username" style="color:Red;display:none;">Please enter valid username</span>
+                    <input type="text" name="Username" id="id_Username" placeholder="Username" value="{{ form_values.Username }}">
                     <input type="password" name="Password" id="id_Password" placeholder="Password" value="{{ form_values.Password }}">
                     <span id="validation_last" style="color:Red;display:inline;">
                    {% if form.errors %}
@@ -71,13 +71,14 @@
     {
         var is_valid = true;
 
-        var sEmail = $('#id_Email').val();
-        if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
-            $("#validation_msg_email").css("display", "inline");
+        var sUsername = $('#id_Username').val();
+        //if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
+        if ($.trim(sUsername).length == 0) {
+            $("#validation_msg_username").css("display", "inline");
             is_valid = false;
         }
         else {
-            $("#validation_msg_email").css("display", "none");
+            $("#validation_msg_username").css("display", "none");
         }
 
         if(is_valid){

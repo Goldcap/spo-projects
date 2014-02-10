@@ -27,6 +27,7 @@ class UserForm(forms.Form):
 class VendorForm(forms.ModelForm):
     FirstName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, error_messages = {'invalid': 'Your First Name is required'})
     LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
+    Username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), required=False)
     Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)  
     Telephone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your Personal Number'}), required=False)
     BusinessTelephone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Your Business Number'}), required=False)
@@ -40,13 +41,15 @@ class VendorForm(forms.ModelForm):
     
     class Meta:
         model = VendorProfile
-        fields = ['FirstName', 'Email']
+        fields = ['FirstName', 'Username', 'Email']
 
     def __init__(self, *args, **kw):
         super(VendorForm, self).__init__(*args, **kw)
         self.fields['FirstName'].initial = self.instance.FirstName
+        if self.instance.user:
+            self.fields['Username'].initial = self.instance.user.username
         #self.fields['LastName'].initial = self.instance.LastName
-        self.fields['Website'].initial = self.instance.Website 
+        #self.fields['Website'].initial = self.instance.Website 
         #self.fields['Telephone'].initial = self.instance.Telephone 
         #self.fields['BusinessTelephone'].initial = self.instance.BusinessTelephone 
         #self.fields['Company'].initial = self.instance.Company
@@ -63,7 +66,7 @@ class VendorForm(forms.ModelForm):
         """
         vendor signup
         """
-        self.user = User.objects.create_user(self.data['Email'].strip(), self.data['Email'].strip(), self.data['Password'].strip())
+        self.user = User.objects.create_user(self.data['Username'].strip(), self.data['Username'].strip(), self.data['Password'].strip())
         #self.user.is_active = False
         self.user.save()
         
@@ -89,14 +92,14 @@ class VendorForm(forms.ModelForm):
         #try:
         self.user = User.objects.get(email=self.data['Email'].strip())
         self.user.email = self.data['Email'].strip()
-        self.user.username = self.data['Email'].strip()
+        #self.user.username = self.data['Email'].strip()
         self.user.save()
 
         rec = VendorProfile.objects.get(user__email=self.data['Email'])
         #rec.Company = self.data['Company']
         rec.FirstName = self.data['FirstName']
         #rec.LastName = self.data['LastName']
-        rec.Website = self.data['Website']
+        #rec.Website = self.data['Website']
         #rec.Telephone = self.data['Telephone']
         #rec.BusinessTelephone = self.data['BusinessTelephone']
         if 'ShortDecs' in self.data:
@@ -134,8 +137,9 @@ class VendorForm(forms.ModelForm):
 
 class VendorProfileForm(forms.ModelForm):
     FirstName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, error_messages = {'invalid': 'Your First Name is required'})
-    LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
-    Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)  
+    #LastName = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
+    Username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), required=False)
+    #Website = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)  
     Company = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Company'}), required=False)
     Email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}), required=True)
     #Password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}), required=True) 
@@ -145,14 +149,15 @@ class VendorProfileForm(forms.ModelForm):
     
     class Meta:
         model = VendorProfile
-        fields = ['FirstName', 'Website', 'ShortDecs',]
+        fields = ['FirstName', 'Username', 'ShortDecs',]
 
     def __init__(self, *args, **kw):
         super(VendorProfileForm, self).__init__(*args, **kw)
         #self.fields['Company'].initial = self.instance.Company
         self.fields['FirstName'].initial = self.instance.FirstName
+        self.fields['Username'].initial = self.instance.user.username
         #self.fields['LastName'].initial = self.instance.LastName  
-        self.fields['Website'].initial = self.instance.Website
+        #self.fields['Website'].initial = self.instance.Website
         self.fields['ShortDecs'].initial = self.instance.ShortDecs
         
     def save(self):
@@ -161,7 +166,7 @@ class VendorProfileForm(forms.ModelForm):
         """
         try:
             self.user, created = User.objects.get_or_create(email=self.cleaned_data['Email'],
-                                                   username=self.cleaned_data['Email'],
+                                                   username=self.cleaned_data['Username'],
                                                    is_active=False,)
         except:
             self._errors = ErrorList(['An account with that email already exists.'])
@@ -184,7 +189,7 @@ class VendorLoginForm(forms.Form):
         """ use awebers client lib to obtain an authorization url
             limit to one auth record...
         """
-        user = authenticate(username=self.data['Email'].strip(), password=self.data['Password'].strip())
+        user = authenticate(username=self.data['Username'].strip(), password=self.data['Password'].strip())
         if user:
             self._errors = ErrorList(['Successfully logged in!'])
             return True

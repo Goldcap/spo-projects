@@ -15,16 +15,18 @@
             <form id="main_form" action="{% url 'spo_app.views.vendor_signup' %}" method="POST">{% csrf_token %}
          	 <div class="row">
                     <div class="six columns">
-                    <label class="h6">Current Vendors</label>
+                    <label class="h6">Current Students</label>
                     <span id="validation_msg_first_name" style="color:Red;display:none;">First Name is required</span>
                     <input type="text" name="FirstName" id="id_FirstName" placeholder="First Name" value="{{ form_values.FirstName }}">
                     <!--<span id="validation_msg_last_name" style="color:Red;display:none;">Last Name is required</span>
                     <input type="text" name="LastName" id="id_LastName" placeholder="Last Name" value="{{ form_values.LastName }}">
                     <span id="validation_msg_company" style="color:Red;display:none;">Company Name is required</span>
                     <input type="text" name="Company" id="id_Company" placeholder="Company Name" value="{{ form_values.Company }}">-->
-                    <span id="validation_msg_email" style="color:Red;display:none;">Please enter valid email address</span>
+                    <span id="validation_msg_email" style="color:Red;display:none;">Please enter valid email</span>
                     <input type="text" name="Email" id="id_Email" placeholder="Email" value="{{ form_values.Email }}">
-                    <label class="h6">Note, your email will be your username.</label><br/>
+                    <span id="validation_msg_password" style="color:Red;display:none;">Your password does not match</span>
+                    <span id="validation_msg_username" style="color:Red;display:none;">Please enter valid username</span>
+                    <input type="text" name="Username" id="id_Username" placeholder="Username" value="{{ form_values.Username }}">
                     <span id="validation_msg_password" style="color:Red;display:none;">Your password does not match</span>
                     <input type="password" name="Password" id="id_Password" placeholder="Password">
                     <input type="password" name="PasswordConfirm" id="id_PasswordConfirm" placeholder="Retype Password">
@@ -135,9 +137,17 @@
         if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
             $("#validation_msg_email").css("display", "inline");
             is_valid = false;
-        }
-        else {
+        } else {
             $("#validation_msg_email").css("display", "none");
+        }
+        
+        var sUsername = $('#id_Username').val();
+        //if ($.trim(sEmail).length == 0 || validateEmail(sEmail) == false) {
+        if ($.trim(sUsername).length == 0) {
+            $("#validation_msg_username").css("display", "inline");
+            is_valid = false;
+        } else {
+            $("#validation_msg_username").css("display", "none");
         }
 
         var pwd = $('#id_Password').val();
@@ -146,9 +156,7 @@
         {
             $("#validation_msg_password").css("display", "inline");
             is_valid = false;
-        }
-        else
-        {
+        } else {
             $('#validation_msg_password').css('display','none');
         }
 

@@ -93,7 +93,7 @@ def vendor_login(request):
     form_values = request.POST
     if request.method == 'POST':
         #form = VendorLoginForm(request.POST)
-        user = authenticate(username=request.POST['Email'].strip(), password=request.POST['Password'].strip())
+        user = authenticate(username=request.POST['Username'].strip(), password=request.POST['Password'].strip())
         try:
             profile = VendorProfile.objects.get(user=user)
             if user and user.is_active and profile.Approved == 1:
@@ -105,7 +105,7 @@ def vendor_login(request):
                 if ('next' in request.GET):
                     return redirect(request.GET['next'])
                 else:
-                    return redirect('/home/')
+                    return redirect('/profile/')
             elif user:
                 return redirect('/pending/')
         except:
@@ -132,7 +132,7 @@ def vendor_signup(request):
         try:
             if form.is_valid():
                 form.save()
-                user = authenticate(username=request.POST['Email'].strip(), password=request.POST['Password'].strip())
+                user = authenticate(username=request.POST['Username'].strip(), password=request.POST['Password'].strip())
                 profile = VendorProfile.objects.get(user=user)
                 
                 subject = 'Urban Space Holdings Vendor Signup'
