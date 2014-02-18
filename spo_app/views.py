@@ -571,7 +571,7 @@ def vendor_images_report(request):
     form_values = request.POST
     vendor_images = VendorImage.objects.all()
     
-    return render_to_response('vendor_images.html', {'vendor_images':vendor_images}, 
+    return render_to_response('vendor_images_report.html', {'vendor_images':vendor_images}, 
     context_instance=RequestContext(request))
     
 @staff_member_required
