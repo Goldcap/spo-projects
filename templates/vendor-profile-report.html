@@ -23,12 +23,9 @@
   <div class="row">
   	<div class="twelve column">
     	 <ul class="sub-nav">                                                       
-            <li><a href="/vendor_profile_report" class="active">Profile Reports</a></li>
-            <li><a href="/market_listings">Market Reports</a></li>
-            <li><a href="/customer_report">Customer Reports</a></li>
-            <li><a href="/vendor_login_activity">Login Activity Reports</a></li>
-            <li><a href="/vendor_accounts_report">Applications</a></li>
-            <li class="last-nav"><a href="/accounts_report/">Accounting Reports</a></li>
+            <li><a href="#" class="active">Profiles</a></li>
+            <li><a href="/login_activity">Login Activity</a></li>
+            <li class="last-nav"><a href="/images_report">Images</a></li>
          </ul>
     </div>
   </div>
@@ -38,7 +35,7 @@
     </div>
     <div class="five column">
     	 <ul class="breadcrumbs">
-            <li><a href="/vendor_home/" class="active">Public Site</a></li>
+            <li><a href="/" class="active">Public Site</a></li>
             <li><a href="/admin/" class="active">Django Admin</a></li>
             <li><a href="/logout/" class="active">Logout</a></li>
         </ul>
@@ -46,52 +43,21 @@
   </div>
   {% endblock %}
   
-  	<div class="row">
-	<!-- Main Blog Content -->
+  	<!-- Main Blog Content -->
     <div class="twelve columns settop">
        
-       <form action="/vendor_profile_report/" method="GET" class="custom example">
+       <form action="/profile_report/" method="GET" class="custom example">
     
     	<div class="row">
         	<div class="six columns">
-            	<h5 class="red">Vendor Profiles</h5>
+            	<h5 class="red">Profiles</h5>
             </div>
             
-            <div class="six columns text-left">
+            <!--<div class="six columns text-left">
             	<h5><a href="/vendor_profile_report/export/?{{ request.META.QUERY_STRING }}" >Download Excel File</a></h5>
-            </div>
+            </div>-->
         </div>
-        
-        <div class="row">
-        	<div class="six columns">
-            	
-                <select name="market" id="customDropdown1" >
-                     <option>All</option>
-                     {% for market in markets %}
-                        <option value="{{ market.id }}" {% if form.market = market.id %}selected="selected"{% endif %}>{{ market.Name }} {{ market.Date|date:"Y" }}</option>
-                     {% endfor %}
-                </select>
-                
-            </div>
-            
-            <div class="six columns text-left">
-            	<div class="large-6 columns">
-                	<label class="viewby">View By:</label>
-                </div>
-                <div class="large-6 columns left">
-                    <!--
-                    <select name="status" id="customDropdown2" class="small">
-                         <option value="All" {% if form.status = "All" %}selected="selected"{% endif %}>All</option>
-                         <option value="Approved" {% if form.status = "Approved" %}selected="selected"{% endif %}>Approved</option>
-                         <option value="Declined" {% if form.status = "Declined" %}selected="selected"{% endif %}>Declined</option>
-                         <option value="New" {% if form.status = "New" %}selected="selected"{% endif %}>New</option>
-                    </select>
-                    -->
-                </div>
-            	
-            </div>
-        </div>
-        
+       
         <div class="row">
         	<div class="six columns">
             	<input name="term" type="text" placeholder="Keyword or Name" {% if form.term %}value="{{ form.term }}"{% endif %} />
@@ -207,6 +173,5 @@
          </div>
     </div>
     
-  </div>
 
 {% endblock %}

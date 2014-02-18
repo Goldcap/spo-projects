@@ -9,12 +9,9 @@
   <div class="row">
   	<div class="twelve column">
     	 <ul class="sub-nav">                                                       
-            <li><a href="/vendor_profile_report"">Profile Reports</a></li>
-            <li><a href="/market_listings">Market Reports</a></li>
-            <li><a href="/customer_report">Customer Reports</a></li>
-            <li><a href="/vendor_login_activity" class="active">Login Activity Reports</a></li>
-            <li><a href="/vendor_accounts_report">Applications</a></li>
-            <li class="last-nav"><a href="/accounts_report/">Accounting Reports</a></li>
+            <li><a href="/profile_report">Profiles</a></li>
+            <li><a href="#" class="active">Login Activity</a></li>
+            <li class="last-nav"><a href="/images_report">Images</a></li>
          </ul>
     </div>
   </div>
@@ -24,25 +21,23 @@
     </div>
     <div class="five column">
     	 <ul class="breadcrumbs">
-            <li><a href="/vendor_home/" class="active">Public Site</a></li>
+            <li><a href="/" class="active">Public Site</a></li>
             <li><a href="/admin/" class="active">Django Admin</a></li>
             <li><a href="/logout/" class="active">Logout</a></li>
         </ul>
     </div>
   </div>
   {% endblock %}
-  
-
-  	<div class="row">
     
+  
     <!-- Main Blog Content -->
     <div class="twelve columns settop">
 
-        <form action="/vendor_login_activity/" method="GET" class="custom example">
+        <form action="/login_activity/" method="GET" class="custom example">
     
     	<div class="row">
         	<div class="eight columns">
-            	<h5 class="red">Vendor Login Activity <a href="/vendor_login_activity/export/?{{ request.META.QUERY_STRING }}" class="right">Download Excel File</a></h5>
+            	<h5 class="red">Login Activity <!--<a href="/vendor_login_activity/export/?{{ request.META.QUERY_STRING }}" class="right">Download Excel File</a>--></h5>
             </div>
             
             <div class="four columns text-right">
@@ -163,7 +158,6 @@
     </div>
     
      </form>
-  </div>
 
   <!-- End Main Content and Sidebar -->
 
