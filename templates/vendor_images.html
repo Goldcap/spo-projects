@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+  {% block nav %}
+  <!-- Main Page Content and Sidebar -->
+  <div class="row">
+  	<div class="twelve column">
+    	 <ul class="sub-nav">                                                    
+            <li><a href="/profile_report">User Profiles</a></li>
+            <li><a href="/login_activity">User Login Activity</a></li>
+            <li class="last-nav"><a href="#" class="active">User Images</a></li>
+         </ul>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="seven column">
+        &nbsp;
+    </div>
+    <div class="five column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/" class="active">Public Site</a></li>
+            <li><a href="/admin/" class="active">Django Admin</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endblock %}
+    
+  <!-- Main Page Content and Sidebar -->
+
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="twelve columns" role="main" id="container">
+        
+        {% if vendor_images %}
+        <ul class="block-grid four-up mobile">
+          {% for image in vendor_images %}
+            <li class="item">
+                <img id="display_{{image.id}}" src="{{image.thumbnail}}" alt="" /><br />
+                {% autoescape off %}
+                Uploaded by: {{ image.user.username }}<br />
+                Status: {{ image.current_status }}<br />
+                Date: {{ image.dateAdded }}
+                {% endautoescape %}
+                <br />
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        
+        <h4>No Images, check back later.</h4>
+        {% endif %}
+        
+    </div>
+     
+  </div>
+  
+  <script type="text-javascript">
+    var container = document.querySelector('#container');
+    var msnry = new Masonry( container, {
+      // options
+      columnWidth: 200,
+      itemSelector: '.item'
+    });
+  </script>
+  <!-- End Main Content and Sidebar -->
+{% endblock %}
