@@ -51,15 +51,14 @@ function removeImage( type, image ) {
             url: '/image_manager/delete/',
             type: "POST",
             data: {
-                    "atype":type,
+                    "atype":"vendor",
                     "image":image
                 },
             success: function(data) {
-                $("#tr_"+type+"_"+data.image+"."+type).remove();
-                console.log(type);
-                console.log($("tr."+type).length);
-                if ($("tr."+type).length == 1) {
-                    $("#tr_"+type+"_0"+"."+type).fadeIn();
+                $("#tr_vendor_"+data.image).remove();
+                console.log($("li.vendor").length);
+                if ($("li.vendor").length == 1) {
+                    $("#tr_vendor_0").fadeIn();
                 }
                 linkImages();
             },
@@ -82,13 +81,15 @@ function linkImages() {
     
     $(".image").click(function(e){
         var type = $(this).attr("type");
-        var image = this.id.replace(type+"_","");
+        var image = this.id;
+               
         removeImage(type, image);
     });
     
     $(".overlay").click(function(e){
         var type = $(this).attr("type");
-        var image = this.id.replace(type+"_","");
+        var image = this.id.replace("overlay_","");
+        
         removeImage(type, image);
     });
     

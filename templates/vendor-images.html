@@ -81,7 +81,7 @@
                     {% for animage in images %}
                 	<li id="tr_vendor_{{animage.id}}" class="vendor">
                     	<div class="theimage">
-                            <div class="overlay"></div>                            
+                            <div id="overlay_{{animage.id}}" class="overlay"></div>                            
                             <img id="{{animage.id}}" type="vendor" class="image" src="{{animage.thumbnail}}" alt="" />
                         </div>
                         <div class="theinfo">
@@ -117,7 +117,7 @@
             };
             var image_template = '<li id="tr_vendor_{{id}}" class="vendor">\
                                 <div class="theimage">\
-                                    <div class="overlay"></div>\
+                                    <div id="overlay_{{id}}" class="overlay"></div>\
                                     <img id="{{id}}" class="image" type="vendor" src="{{thumbnail}}" alt="" />\
                                 </div>\
                                 <div class="theinfo">\
