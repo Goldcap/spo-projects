@@ -99,7 +99,7 @@ def vendor_login(request):
             if user and user.is_active and profile.Approved == 1:
                 login(request, user)
                 ActivityLog.objects.create(user=user,activity="Login")
-                #subject = 'Urban Space Holdings Vendor Login'
+                #subject = 'Special Project Office User Login'
                 #sendAdminEmail(subject,user,profile,"Vendor Login Market Director Notification",True)
             
                 if ('next' in request.GET):
@@ -135,7 +135,7 @@ def vendor_signup(request):
                 user = authenticate(username=request.POST['Username'].strip(), password=request.POST['Password'].strip())
                 profile = VendorProfile.objects.get(user=user)
                 
-                subject = 'Urban Space Holdings Vendor Signup'
+                subject = 'Special Project Office User Signup'
                 sendAdminEmail(subject,user,profile,"Vendor Signup Market Director Notification",True)
                 
                 if user and profile.Approved == 1:
@@ -486,8 +486,6 @@ def vendor_profile_report(request):
         profile_list = VendorProfile.objects.filter().order_by(order_by)
     paginator = Paginator(profile_list, 25) # Show 25 contacts per page
 
-    markets = Market.objects.all()
-    
     page = request.GET.get('page')
     try:
         profiles = paginator.page(page)
@@ -499,7 +497,7 @@ def vendor_profile_report(request):
         profiles = paginator.page(paginator.num_pages)
     
     return render_to_response('vendor-profile-report.html', 
-        {"profiles":profiles,"markets":markets,"form":form,"request":request}, 
+        {"profiles":profiles,"form":form,"request":request}, 
         context_instance=RequestContext(request))
 
 @csrf_exempt
@@ -565,6 +563,17 @@ def customer_report(request):
         context_instance=RequestContext(request))
 
 
+@staff_member_required
+def vendor_images_report(request):
+    """
+    page index
+    """
+    form_values = request.POST
+    vendor_images = VendorImage.objects.all()
+    
+    return render_to_response('vendor_images.html', {'vendor_images':vendor_images}, 
+    context_instance=RequestContext(request))
+    
 @staff_member_required
 def vendor_login_activity(request):
     """
