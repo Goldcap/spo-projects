@@ -40,8 +40,12 @@ class VendorImage(models.Model):
 
     @property
     def thumbnail(self):
-        im = get_thumbnail(self.ImgFile, "160x160", quality=50)
-        return "/static/media/" + im.url
+	try:
+            im = get_thumbnail(self.ImgFile, "160x160", quality=50)
+            return "/static/media/" + im.url
+        except:
+            pass
+        return "/static/images/no_image.jpg"
 
     @property
     def current_status(self):
