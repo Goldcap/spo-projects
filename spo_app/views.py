@@ -564,12 +564,12 @@ def customer_report(request):
 
 
 @staff_member_required
-def vendor_images(request):
+def vendor_images_report(request):
     """
     page index
     """
     form_values = request.POST
-    vendor_images = VendorImage.objects.filter( status = 1)
+    vendor_images = VendorImage.objects.all()
     
     return render_to_response('vendor_images.html', {'vendor_images':vendor_images}, 
     context_instance=RequestContext(request))

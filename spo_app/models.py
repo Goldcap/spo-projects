@@ -43,6 +43,12 @@ class VendorImage(models.Model):
         im = get_thumbnail(self.ImgFile, "160x160", quality=50)
         return "/static/media/" + im.url
 
+    @property
+    def current_status(self):
+        if (self.status == 1):
+            return '<span style="color:green">Public</span>'
+        return '<span style="color:red">Private</span>'
+
 #http://stackoverflow.com/questions/1760421/how-can-i-render-a-manytomanyfield-as-checkboxes
 class VendorProfile(models.Model):
     """

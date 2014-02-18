@@ -15,6 +15,22 @@
 		
     </div>
   </div>
+  
+  {% if user.is_staff or user.is_superadmin %}
+  <div class="row">
+  	<div class="seven column">
+        &nbsp;
+    </div>
+    <div class="five column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/" class="active">Public Site</a></li>
+            <li><a href="/admin/" class="active">Django Admin</a></li>
+            <li><a href="/logout/" class="active">Logout</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endif %}
+  
   {% else %}
   
   <div class="row">
@@ -33,22 +49,26 @@
 
   <div class="row">
 
+    {% if vendor_images %}
     <!-- Main Blog Content -->
     <div class="twelve columns" role="main" id="container">
         
-        {% if vendor_images %}
             {% for image in vendor_images %}
                 <div class="item">
                     <img id="display_{{image.id}}" src="/static/media/{{image.ImgFile.url}}" alt="" />
                 </div>
             {% endfor %}
-        {% else %}
-        
-        <h4>No Images, check back later.</h4>
-        {% endif %}
         
     </div>
-     
+    {% else %}
+        
+        <!-- Main Blog Content -->
+        <div class="six columns" role="main" style="text-align: center">
+            <h4>No Images, check back later.</h4>
+            <br /><br /><br />
+        </div>
+    {% endif %}
+         
   </div>
   
   <script type="text-javascript">

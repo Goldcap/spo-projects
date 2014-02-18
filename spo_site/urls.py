@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     url(r'^profile_form/(?P<profile_id>\d+)/', 'spo_app.views.vendor_profile_form'),
     url(r'^login_activity/export/', 'spo_app.views.export_report', {'source': 'vendor_login_activity'}),
     url(r'^login_activity/', 'spo_app.views.vendor_login_activity'),
-    url(r'^images_report/', 'spo_app.views.vendor_images'),
+    url(r'^images_report/', 'spo_app.views.vendor_images_report'),
     
     #GLOBALS
     url(r'^logout/$', 'django.contrib.auth.views.logout',

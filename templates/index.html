@@ -17,6 +17,22 @@
 		
     </div>
   </div>
+  
+  {% if user.is_staff or user.is_superadmin %}
+  <div class="row">
+  	<div class="seven column">
+        &nbsp;
+    </div>
+    <div class="five column">
+    	 <ul class="breadcrumbs">
+            <li><a href="/" class="active">Public Site</a></li>
+            <li><a href="/admin/" class="active">Django Admin</a></li>
+            <li><a href="/logout/" class="active">Logout</a></li>
+        </ul>
+    </div>
+  </div>
+  {% endif %}
+  
   {% else %}
   
   <div class="row">
@@ -34,8 +50,9 @@
     <div class="row">
 
         <!-- Main Blog Content -->
-        <div class="twelve columns" role="main">
+        <div class="six columns" role="main" style="text-align: center">
             <h4>Nothing yet :)</h4>
+            <br /><br /><br />
         </div>
         
     </div> 
